@@ -1,0 +1,11 @@
+@import "./colors.scss";
+
+@mixin gradient($left-color: #000, $right-color: $main-bg-color) {
+  background: linear-gradient(
+    to right,
+    $left-color 0%,
+    $left-color 2%,
+    $left-color 10%,
+    $right-color 100%
+  );
+}
