@@ -1,18 +1,5 @@
 import { graphty } from "@lib/services/graphty/graphty.service";
-
-interface IBaseErrorResponse {
-  extensions: {
-    code: string;
-    exception: {
-      stacktrace: any[];
-    };
-  };
-  message: string;
-}
-interface IBaseQueryResponse<T> {
-  data: T;
-  errors?: IBaseErrorResponse[];
-}
+import { IBaseErrorResponse, IBaseQueryResponse } from "./base";
 
 /**
  * Response model of

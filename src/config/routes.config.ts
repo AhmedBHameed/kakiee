@@ -2,11 +2,11 @@ export const ROUTER = {
   ROOT: {
     path: `${process.env.REACT_APP_ROOT}`
   },
-  MY_DASHBOARD: {
-    path: `my-dashboard`
+  DASHBOARD: {
+    path: `dashboard`
   },
-  AHMED_HAMEED: {
-    path: `ahmedbhameed`
+  KAKIEE: {
+    path: `kakiee`
   },
   ACCESS: {
     path: "access"
@@ -25,5 +25,11 @@ export const ROUTER = {
   },
   CHANGE_PASS: {
     path: "change-password"
+  },
+  CONTACT: {
+    path: "contact"
+  },
+  ABOUT: {
+    path: "about"
   }
 };

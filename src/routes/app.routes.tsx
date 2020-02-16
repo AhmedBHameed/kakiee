@@ -1,73 +1,38 @@
-import React, { createContext, useMemo, useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IInitAppState } from "../@lib/store/nodeys-dashboard/rootReducer";
 import Notification from "../@lib/components/notification/notification";
 import { ROUTER } from "../config";
-import { useGlobalStyle } from "../styles/global.style";
-import Login from "../@lib/RouterComponents/login/login";
-import Public from "../@lib/RouterComponents/public/public";
-import Protected from "../@lib/RouterComponents/protected/protected";
-import { IContext } from "../@lib/interfaces";
 
-const Context = createContext<IContext>({
-  isAuthenticated: false
-  // authenticate(cb) {
-  //   this.isAuthenticated = true
-  //   setTimeout(cb, 100) // fake async
-  // },
-  // signout(cb) {
-  //   this.isAuthenticated = false
-  //   setTimeout(cb, 100) // fake async
-  // }
-});
+// import Protected from "../pages/protected/protected";
+import AccessPage from "../pages/access/access.page";
+import Kakiee from "../pages/kakiee/kakiee.page";
+import { useGlobalStyle } from "../@lib/styles/lib.style";
 
 const Wrapper: React.FC<any> = () => {
   const gStyles = useGlobalStyle();
   const notify = useSelector((state: IInitAppState) => state.notificationMsg);
 
-  const [context, updateContext] = React.useState({ isAuthenticated: false });
-  console.log("CHECK=>>: context", context);
-
-  useEffect(() => {
-    updateContext(() => ({ isAuthenticated: true }));
-  }, [updateContext]);
-
-  const switchMemo = useMemo(
-    () => (
-      <Context.Provider value={context}>
-        <Context.Consumer>
-          {cntx => (
-            <Switch>
-              <Protected
-                path={`${ROUTER.ROOT.path}${ROUTER.MY_DASHBOARD.path}`}
-                {...cntx}
-                Component={Login}
-              />
-              <Route
-                path={`${ROUTER.ROOT.path}${ROUTER.LOGIN.path}`}
-                render={props => <Login {...props} />}
-              />
-              <Route
-                path={ROUTER.ROOT.path}
-                exact
-                render={props => <Public {...props} />}
-              />
-            </Switch>
-          )}
-        </Context.Consumer>
-      </Context.Provider>
-    ),
-    []
-  );
-
   return (
     <>
-      <div className={gStyles.fullHight}>{switchMemo}</div>
+      <div className={gStyles.h100}>
+        <Switch>
+          <Route
+            path={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}`}
+            component={AccessPage}
+          />
+          <Route path={`${ROUTER.ROOT.path}`} component={Kakiee} />
+        </Switch>
+      </div>
       <Notification
         variant={notify.type === "success" ? "success" : "error"}
         open={!!notify.open}
         message={notify.message || ""}
+        direction={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
       />
     </>
   );
