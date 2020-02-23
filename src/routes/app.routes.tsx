@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IInitAppState } from "../@lib/store/nodeys-dashboard/rootReducer";
-import Notification from "../@lib/components/notification/notification";
+import { Notification } from "../@lib/components/notification/notification";
 import { ROUTER } from "../config";
 
 // import Protected from "../pages/protected/protected";
