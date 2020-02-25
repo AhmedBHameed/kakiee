@@ -1,0 +1,33 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Notification } from "../../@lib/components/notification/notification";
+
+<Meta title="Notification" />
+
+# Notification component
+
+Use this component to generate system notification for the user.
+
+# Notification example
+
+<Preview withToolbar>
+  <Story name="Notification">
+    <Notification
+      message={"This is a test notification message."}
+      variant={"success"}
+      open={true}
+      direction={{
+        vertical: "bottom",
+        horizontal: "right"
+      }}
+    />
+  </Story>
+</Preview>
+
+## Props values
+
+| Prop name | Type    | Default value                               |
+| --------- | ------- | ------------------------------------------- |
+| message   | String  | "No message provided!"                      |
+| variant   | String  | "success"                                   |
+| open      | Boolean | false                                       |
+| direction | Object  | { vertical: "bottom", horizontal: "right" } |

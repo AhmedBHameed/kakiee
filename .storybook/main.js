@@ -1,26 +1,28 @@
-const path = require("path");
-
 module.exports = {
-  stories: ["../src/@lib/**/*.stories.(ts|tsx|js|jsx)"],
+  stories: ["../src/**/*.stories.(js|tsx)"],
   addons: [
     "@storybook/preset-create-react-app",
-    "@storybook/addon-knobs",
     "@storybook/addon-actions",
-    "@storybook/addon-links",
+    "@storybook/addon-knobs",
     "@storybook/addon-storysource",
-    {
-      name: "@storybook/preset-create-react-app",
+    "@storybook/addon-links",
+    "@storybook/addon-jest/register"
+    // {
+    //   name: "@storybook/addon-docs",
+    //   options: {
+    //     configureJSX: true
+    //   }
+    // }
+  ],
+  webpackFinal: async config => {
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve("babel-loader"),
       options: {
-        tsDocgenLoaderOptions: {
-          tsconfigPath: path.resolve(__dirname, "../tsconfig.json")
-        }
+        presets: [["react-app", { flow: false, typescript: true }]]
       }
-    },
-    {
-      name: "@storybook/addon-docs",
-      options: {
-        configureJSX: true
-      }
-    }
-  ]
+    });
+    config.resolve.extensions.push(".ts", ".tsx");
+    return config;
+  }
 };

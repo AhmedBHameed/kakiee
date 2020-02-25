@@ -16,7 +16,8 @@
     "noImplicitAny": false,
     "noEmit": true,
     "baseUrl": "src/",
-    "jsx": "react"
+    "jsx": "react",
+    "rootDirs": ["src"]
   },
   "include": ["src"],
   "exclude": [
