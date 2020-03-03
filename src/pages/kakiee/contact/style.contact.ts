@@ -7,7 +7,8 @@ export const useStyle = makeStyles(theme => ({
     padding: `4.5rem ${theme.spacing(3)}px`,
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    justifyContent: "left"
   },
   itemsSpacing: {
     padding: theme.spacing(1)

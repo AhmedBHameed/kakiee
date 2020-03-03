@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "kakiee": "KAKIEE",
+    "dashboard": "DASHBOARD"
+  },
+  "dashboard": {
+    "1": "This is dashboard main page from translate"
+  },
+  "validators": {
+    "allRequired": "All field is required!",
+    "required": "This field is required!",
+    "invalidEmail": "Invalid email address!"
+  }
+}

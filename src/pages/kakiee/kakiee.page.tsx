@@ -3,7 +3,6 @@ import clsx from "clsx";
 import {
   Grid,
   Typography,
-  Button,
   IconButton,
   useMediaQuery,
   useTheme
@@ -12,24 +11,20 @@ import { useGlobalStyle } from "../../@lib/styles/lib.style";
 import { useStyles } from "./style.kakiee";
 import { Link, RouteComponentProps, NavLink, Route } from "react-router-dom";
 import { ROUTER } from "config";
-import {
-  Facebook,
-  LinkedIn,
-  GitHub,
-  Twitter,
-  Email,
-  Menu
-} from "@material-ui/icons";
+import { LinkedIn, GitHub, Email, Menu } from "@material-ui/icons";
 import Contact from "./contact/contact";
 import Blog from "./blog/blog";
 import About from "./about/about";
-import Protected from "../protected/protected";
+import Dashboard from "../dashboard/dashboard";
 import { ReactComponent as Heart } from "../../static/heart.svg";
+import { useTranslation } from "react-i18next";
+import { getToken } from "../../@lib/util";
 
-const Kakiee: React.FC<RouteComponentProps<any>> = ({ match }) => {
+const Kakiee: React.FC<RouteComponentProps<any>> = props => {
   const gStyle = useGlobalStyle();
   const classes = useStyles();
   const theme = useTheme();
+  const { t } = useTranslation();
   const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [toggleOpt, setToggleOpt] = useState({
@@ -83,19 +78,21 @@ const Kakiee: React.FC<RouteComponentProps<any>> = ({ match }) => {
         >
           <Grid item>
             <Typography variant="h3" gutterBottom className={classes.bold}>
-              KAKIEE
+              {t("menu.kakiee")}
             </Typography>
             <ul className={clsx(classes.list, gStyle.txtCenter)}>
-              <li>
-                <NavLink
-                  className={classes.links}
-                  activeClassName={classes.activeLink}
-                  to={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
-                  exact
-                >
-                  DASHBOARD
-                </NavLink>
-              </li>
+              {!!getToken() && (
+                <li>
+                  <NavLink
+                    className={classes.links}
+                    activeClassName={classes.activeLink}
+                    to={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
+                    exact
+                  >
+                    {t("menu.dashboard")}
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <NavLink
                   isActive={scrollTop}
@@ -206,7 +203,11 @@ const Kakiee: React.FC<RouteComponentProps<any>> = ({ match }) => {
             <Menu fontSize="large" />
           </IconButton>
         )}
-
+        <Route
+          path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
+          exact
+          render={props => <Dashboard {...props} />}
+        />
         <Route
           path={`${ROUTER.ROOT.path}/`}
           exact
@@ -221,11 +222,6 @@ const Kakiee: React.FC<RouteComponentProps<any>> = ({ match }) => {
           path={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
           exact
           render={props => <About {...props} />}
-        />
-        <Protected
-          component={import("../dashboard/dashboard")}
-          path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
-          onFailRedirectTo={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
         />
       </div>
     </div>

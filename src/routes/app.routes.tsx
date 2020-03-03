@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { IInitAppState } from "../@lib/store/nodeys-dashboard/rootReducer";
 import { Notification } from "../@lib/components/notification/notification";
 import { ROUTER } from "../config";
-
-// import Protected from "../pages/protected/protected";
 import AccessPage from "../pages/access/access.page";
 import Kakiee from "../pages/kakiee/kakiee.page";
 import { useGlobalStyle } from "../@lib/styles/lib.style";

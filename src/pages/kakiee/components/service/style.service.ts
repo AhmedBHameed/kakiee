@@ -3,7 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyle = makeStyles(theme => ({
   serviceContainer: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "flex-start"
+    }
   },
   iconContainer: {
     display: "flex",

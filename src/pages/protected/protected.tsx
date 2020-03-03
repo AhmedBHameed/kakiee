@@ -27,10 +27,14 @@ const Protected: React.FC<FCProps> = ({
   });
 
   useEffect(() => {
-    if (!currentUser.id) {
-      dispatch(fetchCurrentUser(setProtectionOpt));
-    }
-  }, [dispatch, setProtectionOpt, currentUser.id]);
+    !currentUser.id
+      ? dispatch(fetchCurrentUser(setProtectionOpt))
+      : setProtectionOpt(s => ({
+          ...s,
+          isRequestFetched: true,
+          isAdmin: !!currentUser.isAdmin
+        }));
+  }, [dispatch, setProtectionOpt, currentUser.id, currentUser.isAdmin]);
 
   return (
     <Route

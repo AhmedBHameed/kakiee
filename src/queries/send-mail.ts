@@ -1,5 +1,5 @@
 import { graphty } from "@lib/services/graphty/graphty.service";
-import { IBaseErrorResponse, IBaseQueryResponse } from "./base";
+import { IBaseQueryResponse } from "./base";
 
 /**
  * Response model of

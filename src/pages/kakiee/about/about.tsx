@@ -2,13 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { TimelineLite, Power4 } from "gsap";
 import clsx from "clsx";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
-import {
-  Typography,
-  useTheme,
-  Grid,
-  Container,
-  Button
-} from "@material-ui/core";
+import { Typography, Grid, Container, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { ReactComponent as Settings } from "../../../static/settings.svg";
 import { ReactComponent as Planning } from "../../../static/planning.svg";

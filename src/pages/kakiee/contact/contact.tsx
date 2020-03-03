@@ -4,7 +4,7 @@ import { get } from "lodash";
 import MapGL, { Marker } from "react-map-gl";
 import clsx from "clsx";
 import { RouteComponentProps } from "react-router-dom";
-import { IFormValidation } from "../../../@lib/services/form-builder/models/form-builder-validation.model";
+// import { IFormValidation } from "../../../@lib/services/form-builder/models/form-builder-validation.model";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import {
   Grid,
@@ -21,67 +21,70 @@ import {
   catchError
 } from "../../../@lib/services";
 import { useStyle } from "./style.contact";
-import { MyLocation, PhoneEnabled } from "@material-ui/icons";
+import { MyLocation, PhoneEnabled, Mail } from "@material-ui/icons";
 import Service from "../components/service/service";
 import { useAppStyle } from "../../../styles/app.style";
 import { sendMailGQL, ISendMailGQL } from "queries/send-mail";
 import { END_POINT } from "config";
 import { notify } from "../../../@lib/store/kakiee/actions";
 import { specialChar } from "../../../@lib/util";
+import { useTranslation } from "react-i18next";
 
-const formModel = {
-  name: "",
-  subject: "",
-  email: "",
-  message: ""
+const viewport = {
+  width: "100%",
+  height: 500,
+  latitude: 48.17986781516112,
+  longitude: 16.359264050177973,
+  zoom: 14
 };
-
-const validationSch: IFormValidation = {
-  name: {
-    required: true
-  },
-  email: {
-    required: true,
-    validators: [
-      {
-        validate: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        error: "Invalid email address!"
-      }
-    ]
-  },
-  subject: {
-    required: true
-  },
-  message: {
-    required: true
-  }
-};
-
 const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const gStyles = useGlobalStyle();
   const appStyles = useAppStyle();
   const classes = useStyle();
+  const { t } = useTranslation();
 
-  const [viewport, setViewport] = useState({
-    width: "100%",
-    height: 500,
-    latitude: 48.17986781516112,
-    longitude: 16.359264050177973,
-    zoom: 14
+  const [form] = useState({
+    state: {
+      name: "",
+      subject: "",
+      email: "",
+      message: ""
+    },
+    validators: {
+      name: {
+        required: true,
+        requiredLocales: t("validators.required")
+      },
+      email: {
+        required: true,
+        requiredLocales: t("validators.required"),
+        validators: [
+          {
+            validate: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            error: t("validators.invalidEmail")
+          }
+        ]
+      },
+      subject: {
+        required: true,
+        requiredLocales: t("validators.required")
+      },
+      message: {
+        required: true,
+        requiredLocales: t("validators.required")
+      }
+    }
   });
+
   const dispatch = useDispatch();
   const [heightAxis, setHeightAxis] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const leftContainerEl = useRef<HTMLDivElement>(null);
 
   const { state, handleOnChange, handleOnSubmit } = useFormReducer(
-    formModel,
-    validationSch,
-    (isValid, data) => {
-      if (isValid) {
-        sendMsg(isValid, data);
-      }
-    }
+    form.state,
+    form.validators,
+    (isValid, data) => sendMsg(isValid, data)
   );
 
   const sendMsg = (isValid: boolean, data: any) => {
@@ -184,7 +187,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         </Grid>
         <Grid item xs={12} sm={4} className={classes.itemsSpacing}>
           <Service
-            Icon={PhoneEnabled}
+            Icon={Mail}
             bodyTxt={"contact.kakiee@gmail.com"}
             customClasses={{
               containerClass: classes.serviceCaptionTxt,
@@ -406,12 +409,13 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                   [
                     ...state.controllers.email.errors,
                     ...state.controllers.name.errors,
-                    ...state.controllers.message.errors
+                    ...state.controllers.message.errors,
+                    ...state.controllers.subject.errors
                   ].some(
-                    error => error.indexOf(`This field is required.`) > -1
+                    error => error.indexOf(t("validators.required")) > -1
                   ) ? (
                     <li>
-                      <small>All fields required.</small>
+                      <small>{t("validators.allRequired")}</small>
                     </li>
                   ) : (
                     ""
@@ -421,9 +425,10 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                     [
                       ...state.controllers.email.errors,
                       ...state.controllers.name.errors,
-                      ...state.controllers.message.errors
+                      ...state.controllers.message.errors,
+                      ...state.controllers.subject.errors
                     ].map((error, i) => {
-                      if (error.indexOf(`This field is required.`) > -1)
+                      if (error.indexOf(t("validators.required")) > -1)
                         return "";
                       return (
                         <li key={`email-error-${i.toString()}`}>
