@@ -110,7 +110,7 @@ const Login: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
             setLoading(false);
             if (!!res.data) {
               if (!!res.data.getToken.isAuthenticated) {
-                setToken(res.data.getToken.token);
+                setToken(res.data.getToken.token, "kakieeToken");
                 dispatch(
                   notify({
                     open: true,

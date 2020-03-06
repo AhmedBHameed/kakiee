@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, RouteComponentProps } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser } from "../../@lib/store/kakiee/actions";
 import { IInitAppState } from "../../@lib/store/kakiee/rootReducer";
@@ -7,14 +7,13 @@ import { IProtectedOpt } from "../../@lib/store/kakiee/reducers";
 import { RenderComponent } from "./protected.conf";
 
 type FCProps = {
-  path: string;
-  component: any;
+  importedComponent: Promise<any>;
   onFailRedirectTo: string;
-};
+} & RouteComponentProps<any>;
 
 const Protected: React.FC<FCProps> = ({
-  path,
-  component,
+  match,
+  importedComponent,
   onFailRedirectTo
 }) => {
   const dispatch = useDispatch();
@@ -38,10 +37,10 @@ const Protected: React.FC<FCProps> = ({
 
   return (
     <Route
-      path={path}
+      path={match.path}
       render={props =>
         RenderComponent(
-          component,
+          importedComponent,
           {
             ...props
           },

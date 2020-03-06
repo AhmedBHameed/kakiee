@@ -23,7 +23,7 @@ export const useStyles = makeStyles(theme => ({
       left: 0
     },
     [theme.breakpoints.up("lg")]: {
-      width: 382
+      width: "20%"
     }
   },
   navMargin: {
@@ -31,7 +31,7 @@ export const useStyles = makeStyles(theme => ({
   },
   asideOpen: {
     left: 0,
-    width: 382
+    width: 300
   },
   main: {
     width: "100%",
@@ -45,12 +45,12 @@ export const useStyles = makeStyles(theme => ({
       width: "70%"
     },
     [theme.breakpoints.up("lg")]: {
-      left: 382,
-      width: `calc(100% - 382px)`
+      left: "20%",
+      width: `calc(100% - 20%)`
     }
   },
   mainShrink: {
-    left: 382,
+    left: 300,
     width: "100%"
   },
   burggerMenu: {

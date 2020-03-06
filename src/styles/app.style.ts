@@ -32,5 +32,11 @@ export const useAppStyle = makeStyles(theme => ({
   sectionSpacingAside: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3)
+  },
+  burgerSpace: {
+    paddingTop: "4.5rem"
+  },
+  grayColor: {
+    color: "gray"
   }
 }));

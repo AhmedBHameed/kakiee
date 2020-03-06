@@ -15,10 +15,10 @@ import { LinkedIn, GitHub, Email, Menu } from "@material-ui/icons";
 import Contact from "./contact/contact";
 import Blog from "./blog/blog";
 import About from "./about/about";
-import Dashboard from "../dashboard/dashboard";
 import { ReactComponent as Heart } from "../../static/heart.svg";
 import { useTranslation } from "react-i18next";
 import { getToken } from "../../@lib/util";
+import Protected from "../protected/protected";
 
 const Kakiee: React.FC<RouteComponentProps<any>> = props => {
   const gStyle = useGlobalStyle();
@@ -77,11 +77,15 @@ const Kakiee: React.FC<RouteComponentProps<any>> = props => {
           className={clsx(gStyle.h100, classes.navMargin)}
         >
           <Grid item>
-            <Typography variant="h3" gutterBottom className={classes.bold}>
+            <Typography
+              variant="h3"
+              gutterBottom
+              className={clsx(classes.bold, gStyle["margin-bottom-5"])}
+            >
               {t("menu.kakiee")}
             </Typography>
             <ul className={clsx(classes.list, gStyle.txtCenter)}>
-              {!!getToken() && (
+              {!!getToken("kakieeToken") && (
                 <li>
                   <NavLink
                     className={classes.links}
@@ -206,7 +210,13 @@ const Kakiee: React.FC<RouteComponentProps<any>> = props => {
         <Route
           path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
           exact
-          render={props => <Dashboard {...props} />}
+          render={props => (
+            <Protected
+              importedComponent={import("../dashboard/main/main.page")}
+              onFailRedirectTo={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
+              {...props}
+            />
+          )}
         />
         <Route
           path={`${ROUTER.ROOT.path}/`}
