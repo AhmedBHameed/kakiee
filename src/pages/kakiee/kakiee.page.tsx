@@ -1,240 +1,100 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, SyntheticEvent } from "react";
 import clsx from "clsx";
-import {
-  Grid,
-  Typography,
-  IconButton,
-  useMediaQuery,
-  useTheme
-} from "@material-ui/core";
+import { Typography, IconButton, useTheme } from "@material-ui/core";
 import { useGlobalStyle } from "../../@lib/styles/lib.style";
 import { useStyles } from "./style.kakiee";
-import { Link, RouteComponentProps, NavLink, Route } from "react-router-dom";
+import { RouteComponentProps, Route } from "react-router-dom";
 import { ROUTER } from "config";
-import { LinkedIn, GitHub, Email, Menu } from "@material-ui/icons";
+import { LinkedIn, GitHub, Email } from "@material-ui/icons";
 import Contact from "./contact/contact";
 import Blog from "./blog/blog";
 import About from "./about/about";
 import { ReactComponent as Heart } from "../../static/heart.svg";
-import { useTranslation } from "react-i18next";
-import { getToken } from "../../@lib/util";
-import Protected from "../protected/protected";
+import { removeToken } from "../../@lib/util";
 
-const Kakiee: React.FC<RouteComponentProps<any>> = props => {
+import { useDispatch } from "react-redux";
+import { resetAppState } from "../../@lib/store/kakiee/actions/logout.action";
+import NavbarAside from "../components/navbar-aside/navbar-aside";
+import NavigationList from "./navigation-list/navigation-list.page";
+
+const Footer: React.FC<any> = () => {
   const gStyle = useGlobalStyle();
   const classes = useStyles();
-  const theme = useTheme();
-  const { t } = useTranslation();
-  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const [toggleOpt, setToggleOpt] = useState({
-    isSmallScreen: isSmScreen,
-    open: false
-  });
-  const toggleMenu = useCallback(
-    (toggle: boolean = false) => {
-      setToggleOpt(s => ({
-        ...s,
-        open: toggle
-      }));
-    },
-    [setToggleOpt]
-  );
-
-  const scrollTop = useCallback((match, location) => {
-    if (!!match) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-    return match;
-  }, []);
-
-  useEffect(() => {
-    if (isSmScreen) {
-      setToggleOpt(s => ({
-        isSmallScreen: isSmScreen,
-        open: false
-      }));
-    } else {
-      setToggleOpt(s => ({
-        ...s,
-        isSmallScreen: isSmScreen
-      }));
-    }
-  }, [setToggleOpt, isSmScreen]);
 
   return (
-    <div className={clsx([gStyle.w100, classes.container])}>
-      <aside
-        className={clsx(classes.aside, toggleOpt.open ? classes.asideOpen : "")}
-      >
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          className={clsx(gStyle.h100, classes.navMargin)}
+    <div className={clsx(classes.copyRights, gStyle.w100, gStyle.txtCenter)}>
+      <Typography variant="caption" display="block" gutterBottom>
+        © 2020 kakiee.at, All Rights Reserved.
+      </Typography>
+      <Typography variant="caption" display="block" gutterBottom>
+        Design with <Heart className={classes.heartColor} /> by&nbsp;
+        <span className={classes.nameColor}>Ahmed Hameed</span>
+      </Typography>
+      <div>
+        <IconButton
+          target="blank"
+          href="https://www.linkedin.com/in/ahmed-hameed-185b3612b/"
+          size="small"
+          aria-label="LinkedIn"
         >
-          <Grid item>
-            <Typography
-              variant="h3"
-              gutterBottom
-              className={clsx(classes.bold, gStyle["margin-bottom-5"])}
-            >
-              {t("menu.kakiee")}
-            </Typography>
-            <ul className={clsx(classes.list, gStyle.txtCenter)}>
-              {!!getToken("kakieeToken") && (
-                <li>
-                  <NavLink
-                    className={classes.links}
-                    activeClassName={classes.activeLink}
-                    to={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
-                    exact
-                  >
-                    {t("menu.dashboard")}
-                  </NavLink>
-                </li>
-              )}
-              <li>
-                <NavLink
-                  isActive={scrollTop}
-                  className={classes.links}
-                  activeClassName={classes.activeLink}
-                  to={`${ROUTER.ROOT.path}/`}
-                  exact
-                >
-                  BLOG
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  isActive={scrollTop}
-                  className={classes.links}
-                  activeClassName={classes.activeLink}
-                  to={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
-                  exact
-                >
-                  ABOUT
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  isActive={scrollTop}
-                  className={classes.links}
-                  activeClassName={classes.activeLink}
-                  to={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
-                  exact
-                >
-                  CONTACT US
-                </NavLink>
-              </li>
-              <li>
-                <Link
-                  className={classes.links}
-                  to={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
-                >
-                  LOGIN
-                </Link>
-              </li>
-            </ul>
-          </Grid>
-        </Grid>
-        <div
-          className={clsx(classes.copyRights, gStyle.w100, gStyle.txtCenter)}
+          <LinkedIn />
+        </IconButton>
+        <IconButton
+          target="blank"
+          href="https://github.com/AhmedBHameed"
+          size="small"
+          aria-label="Github"
         >
-          <Typography variant="caption" display="block" gutterBottom>
-            © 2020 kakiee.at, All Rights Reserved.
-          </Typography>
-          <Typography variant="caption" display="block" gutterBottom>
-            Design with <Heart className={classes.heartColor} /> by&nbsp;
-            <span className={classes.nameColor}>Ahmed Hameed</span>
-          </Typography>
-          <div>
-            <IconButton
-              target="blank"
-              href="https://www.linkedin.com/in/ahmed-hameed-185b3612b/"
-              size="small"
-              aria-label="LinkedIn"
-            >
-              <LinkedIn />
-            </IconButton>
-            {/* <IconButton
-              target="blank"
-              href="https://www.linkedin.com/in/ahmed-hameed-185b3612b/"
-              size="small"
-              aria-label="facebook"
-            >
-              <Facebook />
-            </IconButton> */}
-            {/* <IconButton
-              target="blank"
-              href="https://www.linkedin.com/in/ahmed-hameed-185b3612b/"
-              size="small"
-              aria-label="twitter"
-            >
-              <Twitter />
-            </IconButton> */}
-            <IconButton
-              target="blank"
-              href="https://github.com/AhmedBHameed"
-              size="small"
-              aria-label="Github"
-            >
-              <GitHub />
-            </IconButton>
-            <IconButton size="small" aria-label="ahmedbazy@gmail.com">
-              <a
-                className={classes.iconLinks}
-                href="mailto:contact.kakiee@gmail.com"
-              >
-                <Email />
-              </a>
-            </IconButton>
-          </div>
-        </div>
-      </aside>
-      <div
-        className={clsx(classes.main, toggleOpt.open ? classes.mainShrink : "")}
-      >
-        {isSmScreen && (
-          <IconButton
-            onClick={() => toggleMenu(!toggleOpt.open)}
-            className={classes.burggerMenu}
-            aria-label="Menu"
+          <GitHub />
+        </IconButton>
+        <IconButton size="small" aria-label="ahmedbazy@gmail.com">
+          <a
+            className={classes.iconLinks}
+            href="mailto:contact.kakiee@gmail.com"
           >
-            <Menu fontSize="large" />
-          </IconButton>
-        )}
-        <Route
-          path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
-          exact
-          render={props => (
-            <Protected
-              importedComponent={import("../dashboard/main/main.page")}
-              onFailRedirectTo={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path={`${ROUTER.ROOT.path}/`}
-          exact
-          render={props => <Blog {...props} />}
-        />
-        <Route
-          path={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
-          exact
-          render={props => <Contact {...props} />}
-        />
-        <Route
-          path={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
-          exact
-          render={props => <About {...props} />}
-        />
+            <Email />
+          </a>
+        </IconButton>
       </div>
     </div>
+  );
+};
+
+const Kakiee: React.FC<RouteComponentProps<any>> = props => {
+  const theme = useTheme();
+  const dispatch = useDispatch();
+
+  const handleLogout = useCallback(
+    (e: SyntheticEvent) => {
+      dispatch(resetAppState());
+      removeToken("kakieeToken");
+      return false;
+    },
+    [dispatch]
+  );
+
+  return (
+    <NavbarAside
+      menuComponent={<NavigationList handleLogout={handleLogout} {...props} />}
+      footerComponent={<Footer />}
+      {...props}
+    >
+      <Route
+        path={`${ROUTER.ROOT.path}/`}
+        exact
+        render={props => <Blog {...props} />}
+      />
+      <Route
+        path={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
+        exact
+        render={props => <Contact {...props} />}
+      />
+      <Route
+        path={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
+        exact
+        render={props => <About {...props} />}
+      />
+    </NavbarAside>
   );
 };
 

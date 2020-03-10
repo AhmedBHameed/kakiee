@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import { TimelineLite, Power4 } from "gsap";
 import { Grid, Button } from "@material-ui/core";
-import BlogCard from "../components/blog-card/blog-card";
+import BlogCard from "../../components/blog-card/blog-card";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useAppStyle } from "../../../styles/app.style";
 import { useStyles } from "./style.blog";

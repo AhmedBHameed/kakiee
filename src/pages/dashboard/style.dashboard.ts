@@ -5,7 +5,6 @@ export const useStyle = makeStyles(theme => ({
     paddingTop: "4.5rem",
     position: "relative"
   },
-
   list: {
     listStyle: "none",
     margin: 0,

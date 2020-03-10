@@ -1,6 +1,10 @@
 import React from "react";
 import clsx from "clsx";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton
+} from "react-share";
 import {
   Typography,
   Button,
@@ -13,13 +17,13 @@ import {
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-import { ArrowRightAlt, Facebook, Twitter } from "@material-ui/icons";
+import { ArrowRightAlt, Facebook, Twitter, LinkedIn } from "@material-ui/icons";
 import { useStyles } from "./style.blog-card";
-import Eggs from "../../../../static/eggs.jpg";
-import FALLBACK_IMAGE from "../../../../static/no-image.png";
-import { useGlobalStyle } from "../../../../@lib/styles/lib.style";
-import { useAppStyle } from "../../../../styles/app.style";
+import { useGlobalStyle } from "../../../@lib/styles/lib.style";
+import { useAppStyle } from "../../../styles/app.style";
 import { useTranslation } from "react-i18next";
+import FALLBACK_IMAGE from "../../../static/no-image.png";
+import Eggs from "../../../static/eggs.jpg";
 
 const BlogCard: React.FC<any> = () => {
   const appStyles = useAppStyle();
@@ -95,6 +99,15 @@ const BlogCard: React.FC<any> = () => {
             horizontal: "left"
           }}
         >
+          <LinkedinShareButton url="https://kakiee.at" className={gStyles.w100}>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <LinkedIn fontSize="small" color="secondary" />
+              </ListItemIcon>
+              <ListItemText primary="Linkedin" />
+            </MenuItem>
+          </LinkedinShareButton>
+
           <FacebookShareButton url="https://kakiee.at" className={gStyles.w100}>
             <MenuItem onClick={handleClose}>
               <ListItemIcon>

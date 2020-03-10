@@ -3,9 +3,6 @@
     "kakiee": "KAKIEE",
     "dashboard": "DASHBOARD"
   },
-  "dashboard": {
-    "1": "This is dashboard main page from translate"
-  },
   "validators": {
     "allRequired": "All field is required!",
     "required": "This field is required!",
@@ -42,5 +39,11 @@
     },
     "contactMe": "CONTACT ME",
     "contactSubtitle": "Any type of engagement is required so DO NOT hesitate to contact me. Even we can drink a cup of caffee together."
+  },
+  "dashbaord": {
+    "asideMenu": {
+      "main": "DASHBOARD",
+      "articals": "ARTICALS"
+    }
   }
 }

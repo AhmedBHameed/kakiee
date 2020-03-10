@@ -6,13 +6,11 @@ import { IProtectedOpt } from "../../@lib/store/kakiee/reducers";
 const LoadPage = (importedPage: any, protectionOpt: IProtectedOpt) => {
   return lazy(() =>
     Promise.all([
-      new Promise(resolve => {
+      new Promise((res, rej) => {
         if (protectionOpt.isAdmin) {
-          resolve(importedPage);
+          res(importedPage);
         } else if (protectionOpt.isRequestFetched && !!protectionOpt.history) {
-          setTimeout(() => {
-            protectionOpt.history.push(`${protectionOpt.onFailRedirectTo}`);
-          }, 100);
+          protectionOpt.history.push(`${protectionOpt.onFailRedirectTo}`);
         }
       })
     ]).then(([moduleExports]: any) => moduleExports)

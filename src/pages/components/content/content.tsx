@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { Container, Grid } from "@material-ui/core";
-import { useGlobalStyle } from "../../../../@lib/styles/lib.style";
+import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 
 type IContent = {
   classes?: {

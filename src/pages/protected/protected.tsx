@@ -37,7 +37,7 @@ const Protected: React.FC<FCProps> = ({
 
   return (
     <Route
-      path={match.path}
+      path={match.url}
       render={props =>
         RenderComponent(
           importedComponent,

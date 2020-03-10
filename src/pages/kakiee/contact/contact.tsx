@@ -22,7 +22,7 @@ import {
 } from "../../../@lib/services";
 import { useStyle } from "./style.contact";
 import { MyLocation, PhoneEnabled, Mail } from "@material-ui/icons";
-import Service from "../components/service/service";
+import Service from "../../components/service/service";
 import { useAppStyle } from "../../../styles/app.style";
 import { sendMailGQL, ISendMailGQL } from "queries/send-mail";
 import { END_POINT } from "config";

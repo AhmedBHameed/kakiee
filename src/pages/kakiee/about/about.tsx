@@ -10,8 +10,8 @@ import { ReactComponent as Optimization } from "../../../static/optimization.svg
 import { ReactComponent as Consulting } from "../../../static/consulting.svg";
 import { useStyle } from "./style.about";
 import { ReactComponent as Mysvg } from "../../../static/mysvg.svg";
-import Content from "../components/content/content";
-import Service from "../components/service/service";
+import Content from "../../components/content/content";
+import Service from "../../components/service/service";
 import { ROUTER } from "../../../config";
 import { useAppStyle } from "../../../styles/app.style";
 import { useTranslation } from "react-i18next";

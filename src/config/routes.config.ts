@@ -2,9 +2,6 @@ export const ROUTER = {
   ROOT: {
     path: `${process.env.REACT_APP_ROOT}`
   },
-  DASHBOARD: {
-    path: `dashboard`
-  },
   KAKIEE: {
     path: `kakiee`
   },
@@ -31,5 +28,12 @@ export const ROUTER = {
   },
   ABOUT: {
     path: "about"
+  },
+  // DASHBOARD
+  DASHBOARD: {
+    path: `dashboard`
+  },
+  ARTICALS: {
+    path: "articals"
   }
 };
