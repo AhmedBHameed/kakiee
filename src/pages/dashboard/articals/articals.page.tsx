@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import clsx from "clsx";
 import { RouteComponentProps } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ReactMde from "react-mde";
 import {
   Typography,
   Grid,
@@ -9,67 +10,42 @@ import {
   TextField,
   CircularProgress,
   Button,
-  FormHelperText
+  FormHelperText,
+  Checkbox,
+  FormControlLabel
 } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useFormReducer } from "@lib/services";
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import Paragraph from "@editorjs/paragraph";
-
-// import clsx from "clsx";
-// import { useDispatch, useSelector } from "react-redux";
-// import Content from "../../components/content/content";
-// // import classes from "*.module.css";
-// import { useStyle } from "./style.main";
-// import { IInitAppState } from "../../../@lib/store/kakiee/rootReducer";
-// import { AppBarComponent, AppDrawer } from "../../../@lib/components";
-// // import { SettingsApplications, SupervisorAccount } from "@material-ui/icons";
-// import { ROUTER } from "../../../config";
-// import { resetAppState } from "../../../@lib/store/kakiee/actions";
-// import { removeToken, getToken } from "../../../@lib/util";
-// import { Dashboard } from "@material-ui/icons";
-// import NavbarAside from "../../components/navbar-aside/navbar-aside";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.articals";
-import { useEffect } from "react";
+import { converter } from "./config";
+import { specialChar } from "../../../@lib/util";
+import "highlight.js/scss/github.scss";
 import "./artical.scss";
-// import { IUserProfileState } from "../../../@lib/store/kakiee/reducers";
+import { useEffect } from "react";
 
 const Articals: React.FC<RouteComponentProps<any>> = props => {
   const { t } = useTranslation();
   const gStyles = useGlobalStyle();
   const classes = useStyle();
-  const editorEl = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
-  const [editor, setEditor] = useState<any>();
+  const [categories, setCategories] = useState([{ title: "JS", year: "001" }]);
+  const [selectedTab, setSelectedTab] = React.useState<"write" | "preview">(
+    "write"
+  );
+
   const [form] = useState({
     state: {
-      name: "",
       subject: "",
-      email: "",
-      message: ""
+      artical: `**Write your artical here**`,
+      publish: false
     },
     validators: {
-      name: {
-        required: true,
-        requiredLocales: t("validators.required")
-      },
-      email: {
-        required: true,
-        requiredLocales: t("validators.required"),
-        validators: [
-          {
-            validate: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            error: t("validators.invalidEmail")
-          }
-        ]
-      },
       subject: {
         required: true,
         requiredLocales: t("validators.required")
       },
-      message: {
+      artical: {
         required: true,
         requiredLocales: t("validators.required")
       }
@@ -80,27 +56,23 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
     form.state,
     form.validators,
     (isValid, data) => {
-      editor.save().then(res => {
-        console.log("CHECK=>>: res", res);
-      });
+      // let newData = specialChar(data, {
+      //   clean: true,
+      //   cleanFields: ["subject", "artical"]
+      // });
       console.log(isValid, data);
     }
   );
 
   useEffect(() => {
-    setEditor(() => {
-      if (!!editorEl?.current) {
-        return new EditorJS({
-          holderId: editorEl.current,
-          tools: {
-            header: Header,
-            list: List,
-            paragraph: Paragraph
-          }
-        });
-      }
-    });
-  }, [setEditor]);
+    setTimeout(() => {
+      setCategories(s => {
+        s.push({ title: "CSS", year: "002" });
+        return [...s];
+      });
+    }, 2000);
+  }, [setCategories]);
+
   return (
     <Grid
       container
@@ -109,12 +81,15 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
       alignItems="flex-start"
       spacing={2}
     >
-      <Typography variant="h3" display="block" gutterBottom>
+      <Typography variant="h4" display="block" gutterBottom>
         New artical
+      </Typography>
+      <Typography variant="subtitle1" display="block" gutterBottom>
+        Create a new artical with love and motivation.
       </Typography>
       <form
         onSubmit={handleOnSubmit}
-        className={clsx(gStyles.w100, classes.shiftLeft)}
+        className={clsx(gStyles.w100, gStyles["margin-top-2"])}
       >
         <Grid item xs={12}>
           <FormControl className={gStyles.w100}>
@@ -130,6 +105,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               variant="outlined"
               label="Subject"
               margin="none"
+              size="small"
             />
             {/* <FormHelperText
               id="name"
@@ -151,19 +127,83 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <FormControl className={gStyles.w100}>
-            <div ref={editorEl} />
+          <FormControl className={clsx(gStyles.w100, gStyles["margin-top-2"])}>
+            <Autocomplete
+              multiple
+              id="size-small-outlined-multi"
+              size="small"
+              disableCloseOnSelect
+              options={categories}
+              getOptionLabel={option => option.title}
+              defaultValue={[categories[0]]}
+              value={state.formData.category}
+              onChange={handleOnChange}
+              renderOption={(option, { selected }) => (
+                <>
+                  <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                  {option.title + ` ${JSON.stringify(selected)}`}
+                </>
+              )}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Artical category"
+                  placeholder="Category"
+                />
+              )}
+            />
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <FormControl className={gStyles.w100}>
+          <FormControl className={clsx(gStyles.w100, gStyles["margin-top-2"])}>
+            <ReactMde
+              // getIcon={(commandName) => <MyCustomIcon name={commandName} />}
+              value={state.formData.artical}
+              onChange={(value: string) =>
+                handleOnChange({
+                  target: {
+                    name: "artical",
+                    value
+                  }
+                })
+              }
+              minEditorHeight={350}
+              selectedTab={selectedTab}
+              onTabChange={setSelectedTab}
+              generateMarkdownPreview={markdown =>
+                Promise.resolve(converter.makeHtml(markdown))
+              }
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl className={clsx(gStyles.w100, gStyles["margin-top-2"])}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  // checked={gilad}
+                  value={state.formData.publish}
+                  name="publish"
+                  onChange={handleOnChange}
+                />
+              }
+              label="Publish"
+            />
+            <FormHelperText>
+              Publish means the artical will become public for all!
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl className={clsx(gStyles.w100, gStyles["margin-v-2"])}>
             <Button
               variant="contained"
               color="secondary"
               type="submit"
               className={gStyles.w100}
             >
-              <span>Send</span>
+              <span>Save</span>
               {loading && (
                 <CircularProgress
                   className={classes.circulProgressColor}
@@ -173,7 +213,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               )}
             </Button>
 
-            <FormHelperText
+            {/* <FormHelperText
               id="email"
               component={"div"}
               margin="dense"
@@ -182,9 +222,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               <ul className={gStyles["padding-right-2"]}>
                 {state.submitted &&
                 [
-                  ...state.controllers.email.errors,
-                  ...state.controllers.name.errors,
-                  ...state.controllers.message.errors,
+                  ...state.controllers.artical.errors,
                   ...state.controllers.subject.errors
                 ].some(
                   error => error.indexOf(t("validators.required")) > -1
@@ -211,7 +249,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
                     );
                   })}
               </ul>
-            </FormHelperText>
+            </FormHelperText> */}
           </FormControl>
         </Grid>
       </form>

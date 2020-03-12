@@ -29,7 +29,6 @@ const Wrapper: React.FC<any> = () => {
           />
           <Route
             path={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}`}
-            exact
             component={AccessPage}
           />
           <Route path={`${ROUTER.ROOT.path}`} exact component={Kakiee} />

@@ -43,7 +43,8 @@
   "dashbaord": {
     "asideMenu": {
       "main": "DASHBOARD",
-      "articals": "ARTICALS"
+      "articals": "ARTICALS",
+      "newArtical": "NEW ARTICAL"
     }
   }
 }

@@ -224,6 +224,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 variant="outlined"
                 label="Subject"
                 margin="none"
+                size="small"
               />
               {/* <FormHelperText
               id="name"
@@ -257,6 +258,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 variant="outlined"
                 label="Name"
                 margin="none"
+                size="small"
               />
               {/* <FormHelperText
               id="name"
@@ -300,6 +302,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 label="Email"
                 variant="outlined"
                 margin="none"
+                size="small"
               />
 
               {/* <FormHelperText
@@ -353,6 +356,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 onChange={handleOnChange}
                 label="Message"
                 variant="outlined"
+                size="small"
                 multiline
                 rows="9"
                 className={clsx(gStyles.h100, gStyles.noSpacing)}

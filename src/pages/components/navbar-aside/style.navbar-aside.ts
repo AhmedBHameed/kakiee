@@ -51,8 +51,8 @@ export const useStyles = makeStyles(theme => ({
   },
   burggerMenu: {
     position: "absolute",
-    top: 20,
-    left: 20,
+    top: 10,
+    left: 10,
     zIndex: 1004
   },
   bold: {

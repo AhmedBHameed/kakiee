@@ -48,10 +48,10 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
           isActive={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
-          to={`${match.path}/${ROUTER.ARTICALS.path}`}
+          to={`${match.path}/${ROUTER.NEWARTICAL.path}`}
           exact
         >
-          {t("dashbaord.asideMenu.articals")}
+          {t("dashbaord.asideMenu.newArtical")}
         </NavLink>
       </li>
       {getToken("kakieeToken") ? (

@@ -44,7 +44,7 @@ const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
           render={props => <MainDash {...props} />}
         />
         <Route
-          path={`${mainProps.match.path}/${ROUTER.ARTICALS.path}`}
+          path={`${mainProps.match.path}/${ROUTER.NEWARTICAL.path}`}
           exact
           render={props => <Articals {...props} />}
         />
