@@ -1,6 +1,6 @@
 import React, { useCallback, SyntheticEvent } from "react";
 import clsx from "clsx";
-import { Typography, IconButton, useTheme } from "@material-ui/core";
+import { Typography, IconButton } from "@material-ui/core";
 import { useGlobalStyle } from "../../@lib/styles/lib.style";
 import { useStyles } from "./style.kakiee";
 import { RouteComponentProps, Route } from "react-router-dom";
@@ -11,29 +11,32 @@ import Blog from "./blog/blog";
 import About from "./about/about";
 import { ReactComponent as Heart } from "../../static/heart.svg";
 import { removeToken } from "../../@lib/util";
-
 import { useDispatch } from "react-redux";
 import { resetAppState } from "../../@lib/store/kakiee/actions/logout.action";
 import NavbarAside from "../components/navbar-aside/navbar-aside";
 import NavigationList from "./navigation-list/navigation-list.page";
+import { useTranslation } from "react-i18next";
 
 const Footer: React.FC<any> = () => {
   const gStyle = useGlobalStyle();
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={clsx(classes.copyRights, gStyle.w100, gStyle.txtCenter)}>
       <Typography variant="caption" display="block" gutterBottom>
-        © 2020 kakiee.at, All Rights Reserved.
+        {t("footer.line1")}
       </Typography>
       <Typography variant="caption" display="block" gutterBottom>
-        Design with <Heart className={classes.heartColor} /> by&nbsp;
-        <span className={classes.nameColor}>Ahmed Hameed</span>
+        {t("footer.line2.made")}&nbsp;
+        <Heart className={classes.heartColor} />
+        &nbsp;{t("footer.line2.by")}&nbsp;
+        <span className={classes.nameColor}>{t("footer.line2.owner")}</span>
       </Typography>
       <div>
         <IconButton
           target="blank"
-          href="https://www.linkedin.com/in/ahmed-hameed-185b3612b/"
+          href={t("footer.socialLinks.linkedin")}
           size="small"
           aria-label="LinkedIn"
         >
@@ -41,17 +44,14 @@ const Footer: React.FC<any> = () => {
         </IconButton>
         <IconButton
           target="blank"
-          href="https://github.com/AhmedBHameed"
+          href={t("footer.socialLinks.github")}
           size="small"
           aria-label="Github"
         >
           <GitHub />
         </IconButton>
-        <IconButton size="small" aria-label="ahmedbazy@gmail.com">
-          <a
-            className={classes.iconLinks}
-            href="mailto:contact.kakiee@gmail.com"
-          >
+        <IconButton size="small" aria-label={t("footer.socialLinks.email")}>
+          <a className={classes.iconLinks} href={t("footer.socialLinks.email")}>
             <Email />
           </a>
         </IconButton>
@@ -61,7 +61,6 @@ const Footer: React.FC<any> = () => {
 };
 
 const Kakiee: React.FC<RouteComponentProps<any>> = props => {
-  const theme = useTheme();
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(

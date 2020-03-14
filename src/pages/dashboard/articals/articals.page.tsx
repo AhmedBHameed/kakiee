@@ -20,6 +20,7 @@ import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.articals";
 import { converter } from "./config";
 import { specialChar } from "../../../@lib/util";
+import { useAppStyle } from "../../../styles/app.style";
 import "highlight.js/scss/github.scss";
 import "./artical.scss";
 import { useEffect } from "react";
@@ -27,6 +28,7 @@ import { useEffect } from "react";
 const Articals: React.FC<RouteComponentProps<any>> = props => {
   const { t } = useTranslation();
   const gStyles = useGlobalStyle();
+  const appStyles = useAppStyle();
   const classes = useStyle();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([{ title: "JS", year: "001" }]);
@@ -80,6 +82,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
       justify="center"
       alignItems="flex-start"
       spacing={2}
+      className={classes.whiteTxt}
     >
       <Typography variant="h4" display="block" gutterBottom>
         New artical
@@ -106,6 +109,15 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               label="Subject"
               margin="none"
               size="small"
+              InputLabelProps={{
+                classes: {
+                  root: appStyles.fieldsLabelColor,
+                  focused: appStyles.fieldsLabelColor
+                }
+              }}
+              InputProps={{
+                classes: { root: appStyles.fieldsBackground }
+              }}
             />
             {/* <FormHelperText
               id="name"
@@ -150,6 +162,15 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
                   variant="outlined"
                   label="Artical category"
                   placeholder="Category"
+                  InputLabelProps={{
+                    classes: {
+                      root: appStyles.fieldsLabelColor,
+                      focused: appStyles.fieldsLabelColor
+                    }
+                  }}
+                  InputProps={{
+                    classes: { root: appStyles.fieldsBackground }
+                  }}
                 />
               )}
             />
@@ -174,6 +195,9 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               generateMarkdownPreview={markdown =>
                 Promise.resolve(converter.makeHtml(markdown))
               }
+              classes={{
+                textArea: clsx(appStyles.fieldsBackground, classes.whiteTxt)
+              }}
             />
           </FormControl>
         </Grid>

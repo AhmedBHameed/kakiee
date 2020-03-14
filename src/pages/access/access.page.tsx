@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Grid, Container, Paper, Tabs, Tab } from "@material-ui/core";
+import clsx from "clsx";
+import { Card, Grid, Paper, Tabs, Tab } from "@material-ui/core";
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { useStyles } from "./style.access";
 import { ROUTER } from "../../config";
@@ -36,10 +37,10 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({
   }, [match.url, location.pathname]);
 
   return (
-    <Container>
+    <div className={clsx(classes.backgroundColor, classes.fullScreen)}>
       <Grid
         container
-        className={classes.fullHight}
+        className={classes.fullScreen}
         direction="column"
         justify="center"
         alignItems="center"
@@ -51,8 +52,8 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({
               <Paper square>
                 <Tabs
                   value={tabValue}
-                  indicatorColor="primary"
-                  textColor="primary"
+                  indicatorColor="secondary"
+                  textColor="secondary"
                   onChange={handleChange}
                   aria-label="disabled tabs example"
                 >
@@ -93,7 +94,7 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({
           </Card>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 };
 

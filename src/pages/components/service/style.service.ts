@@ -16,10 +16,10 @@ export const useStyle = makeStyles(theme => ({
     alignItems: "center"
   },
   iconContent: {
-    background:
+    backgroundColor:
       theme.palette.type === "dark"
-        ? theme.palette.primary["800"]
-        : theme.palette.primary["400"],
+        ? theme.palette.primary["700"]
+        : theme.palette.primary["300"],
     borderRadius: "50%",
     width: 100,
     height: 100,

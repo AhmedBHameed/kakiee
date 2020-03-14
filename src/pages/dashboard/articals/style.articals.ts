@@ -10,5 +10,11 @@ export const useStyle = makeStyles(theme => ({
   },
   "ce-block__content": {
     margin: "0"
+  },
+  whiteTxt: {
+    color:
+      theme.palette.type === "light"
+        ? theme.palette.common.black
+        : theme.palette.common.white
   }
 }));

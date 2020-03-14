@@ -1,12 +1,12 @@
 import React, { useCallback, SyntheticEvent } from "react";
-import { RouteComponentProps, NavLink, Link } from "react-router-dom";
+import { RouteComponentProps, NavLink, Link, match } from "react-router-dom";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { ROUTER } from "../../../config";
 import { getToken } from "../../../@lib/util";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
-// import { IUserProfileState } from "../../../@lib/store/kakiee/reducers";
 import { useStyle } from "./style.dashboard-navigation";
+import { ThemeSwitch } from "../../components";
 
 type IDashboardNavigation = {
   // user?: IUserProfileState;
@@ -19,14 +19,13 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
   const gStyle = useGlobalStyle();
   const { t } = useTranslation();
 
-  const scrollTop = useCallback((match, location) => {
-    if (!!match) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-    return match;
+  const isActive = useCallback((match: match<any>) => !!match?.isExact, []);
+
+  const scrollTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }, []);
 
   return (
@@ -34,6 +33,8 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
       {!!getToken("kakieeToken") && (
         <li>
           <NavLink
+            isActive={isActive}
+            onClick={scrollTop}
             className={classes.links}
             activeClassName={classes.activeLink}
             to={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
@@ -45,7 +46,8 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
       )}
       <li>
         <NavLink
-          isActive={scrollTop}
+          isActive={isActive}
+          onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
           to={`${match.path}/${ROUTER.NEWARTICAL.path}`}
@@ -74,6 +76,9 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
           </Link>
         </li>
       )}
+      <li>
+        <ThemeSwitch />
+      </li>
     </ul>
   );
 };

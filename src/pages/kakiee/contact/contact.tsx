@@ -216,7 +216,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
           <Grid item xs={6} ref={leftContainerEl}>
             <FormControl className={gStyles.w100}>
               <TextField
-                className={gStyles.noSpacing}
+                className={clsx(gStyles.noSpacing)}
                 autoFocus
                 error={state.submitted && state.controllers.subject.inValid}
                 id="subject"
@@ -228,6 +228,15 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 label="Subject"
                 margin="none"
                 size="small"
+                InputLabelProps={{
+                  classes: {
+                    root: appStyles.fieldsLabelColor,
+                    focused: appStyles.fieldsLabelColor
+                  }
+                }}
+                InputProps={{
+                  classes: { root: appStyles.fieldsBackground }
+                }}
               />
               {/* <FormHelperText
               id="name"
@@ -262,6 +271,17 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 label="Name"
                 margin="none"
                 size="small"
+                InputLabelProps={{
+                  classes: {
+                    root: appStyles.fieldsLabelColor,
+                    focused: appStyles.fieldsLabelColor
+                  }
+                }}
+                InputProps={{
+                  classes: {
+                    root: appStyles.fieldsBackground
+                  }
+                }}
               />
               {/* <FormHelperText
               id="name"
@@ -306,6 +326,17 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 variant="outlined"
                 margin="none"
                 size="small"
+                InputLabelProps={{
+                  classes: {
+                    root: appStyles.fieldsLabelColor,
+                    focused: appStyles.fieldsLabelColor
+                  }
+                }}
+                InputProps={{
+                  classes: {
+                    root: appStyles.fieldsBackground
+                  }
+                }}
               />
 
               {/* <FormHelperText
@@ -361,10 +392,22 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 variant="outlined"
                 size="small"
                 multiline
-                rows="9"
+                rows="6"
                 className={clsx(gStyles.h100, gStyles.noSpacing)}
+                InputLabelProps={{
+                  classes: {
+                    root: appStyles.fieldsLabelColor,
+                    focused: appStyles.fieldsLabelColor
+                  }
+                }}
                 InputProps={{
-                  classes: { root: clsx(gStyles.h100, classes.overflowHidden) }
+                  classes: {
+                    root: clsx(
+                      gStyles.h100,
+                      classes.overflowHidden,
+                      appStyles.fieldsBackground
+                    )
+                  }
                 }}
                 // defaultValue=""
               />

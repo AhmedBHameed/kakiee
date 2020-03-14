@@ -46,5 +46,18 @@
       "articals": "ARTICALS",
       "newArtical": "NEW ARTICAL"
     }
+  },
+  "footer": {
+    "line1": "© 2020 kakiee.at, All Rights Reserved.",
+    "line2": {
+      "made": "Made with",
+      "by": "by",
+      "owner": "Ahmed Hameed"
+    },
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/ahmed-hameed-185b3612b/",
+      "github": "https://github.com/AhmedBHameed",
+      "email": "mailto:contact.kakiee@gmail.com"
+    }
   }
 }

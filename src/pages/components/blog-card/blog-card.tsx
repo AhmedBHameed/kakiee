@@ -80,7 +80,7 @@ const BlogCard: React.FC<any> = () => {
           aria-controls="share-menu"
           onClick={handleClick}
           size="small"
-          color="primary"
+          color="secondary"
         >
           {t("blogCard.share")}
         </Button>
@@ -125,7 +125,7 @@ const BlogCard: React.FC<any> = () => {
             </MenuItem>
           </TwitterShareButton>
         </Menu>
-        <Button size="small" color="primary">
+        <Button size="small" color="secondary">
           {t("blogCard.readMore")}&nbsp;
           <ArrowRightAlt fontSize="small" />
         </Button>

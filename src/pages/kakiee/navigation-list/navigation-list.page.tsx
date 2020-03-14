@@ -1,14 +1,11 @@
 import React, { useCallback, SyntheticEvent, useState } from "react";
-import { RouteComponentProps, NavLink, Link } from "react-router-dom";
+import { RouteComponentProps, NavLink, Link, match } from "react-router-dom";
 import clsx from "clsx";
-import { useDispatch } from "react-redux";
 import { getToken } from "../../../@lib/util";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.navigation-list";
-import { IconButton } from "@material-ui/core";
-import { changeAppTheme } from "../../../@lib/store/kakiee/actions";
 import { ROUTER } from "../../../config";
-import { WbSunny, NightsStay } from "@material-ui/icons";
+import { ThemeSwitch } from "../../components";
 
 type IDashboardNavigation = {
   handleLogout?: (e: SyntheticEvent) => boolean;
@@ -18,24 +15,15 @@ const NavigationList: React.FC<RouteComponentProps<any> &
   IDashboardNavigation> = ({ handleLogout }) => {
   const classes = useStyle();
   const gStyle = useGlobalStyle();
-  const dispatch = useDispatch();
-  const [theme, setTheme] = useState("light");
 
-  const scrollTop = useCallback((match, location) => {
-    if (!!match) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-    return match;
+  const isActive = useCallback((match: match<any>) => !!match?.isExact, []);
+
+  const scrollTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }, []);
-
-  const themeTogle = useCallback(() => {
-    const currentTheme = theme === "light" ? "dark" : "light";
-    setTheme(currentTheme);
-    dispatch(changeAppTheme(currentTheme));
-  }, [theme, dispatch]);
 
   return (
     <ul className={clsx(classes.list, gStyle.txtCenter)}>
@@ -53,7 +41,8 @@ const NavigationList: React.FC<RouteComponentProps<any> &
       )} */}
       <li>
         <NavLink
-          isActive={scrollTop}
+          isActive={isActive}
+          onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
           to={`${ROUTER.ROOT.path}/`}
@@ -64,7 +53,8 @@ const NavigationList: React.FC<RouteComponentProps<any> &
       </li>
       <li>
         <NavLink
-          isActive={scrollTop}
+          isActive={isActive}
+          onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
           to={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
@@ -75,7 +65,8 @@ const NavigationList: React.FC<RouteComponentProps<any> &
       </li>
       <li>
         <NavLink
-          isActive={scrollTop}
+          isActive={isActive}
+          onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
           to={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
@@ -105,13 +96,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
         </li>
       )}
       <li>
-        <IconButton onClick={() => themeTogle()} aria-label="Menu">
-          {theme === "light" ? (
-            <NightsStay fontSize="large" />
-          ) : (
-            <WbSunny fontSize="large" />
-          )}
-        </IconButton>
+        <ThemeSwitch />
       </li>
     </ul>
   );

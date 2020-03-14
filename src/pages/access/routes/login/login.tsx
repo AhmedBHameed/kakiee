@@ -226,7 +226,11 @@ const Login: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                   >
-                    {showPass ? <Visibility /> : <VisibilityOff />}
+                    {showPass ? (
+                      <Visibility color="secondary" />
+                    ) : (
+                      <VisibilityOff color="secondary" />
+                    )}
                   </IconButton>
                 </InputAdornment>
               }
@@ -265,7 +269,7 @@ const Login: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
               className={gStyles["margin-1"]}
               type="submit"
               variant="contained"
-              color="primary"
+              color="secondary"
               size="large"
             >
               Login

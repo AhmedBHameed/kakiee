@@ -163,7 +163,7 @@ const ForgetPassword: React.FC<RouteComponentProps<any>> = ({
               className={gStyles["margin-1"]}
               type="submit"
               variant="contained"
-              color="primary"
+              color="secondary"
               size="large"
             >
               Send

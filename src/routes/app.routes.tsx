@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MimTheme, DarkTheme } from "../styles/app.style";
 import { Route, Switch } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Notification } from "../@lib/components/notification/notification";
 import { ROUTER } from "../config";
 import AccessPage from "../pages/access/access.page";
