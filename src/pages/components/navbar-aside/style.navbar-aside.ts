@@ -5,7 +5,11 @@ export const useStyles = makeStyles(theme => ({
     overflow: "hidden"
   },
   aside: {
-    backgroundColor: "rgba(0,0,0,0.05)",
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.primary["700"]
+        : theme.palette.primary["300"],
+    color: theme.palette.text.primary,
     overflow: "hidden",
     position: "fixed",
     transition: "left .5s",

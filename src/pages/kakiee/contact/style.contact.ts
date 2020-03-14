@@ -2,7 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyle = makeStyles(theme => ({
   infoContainer: {
-    background: "lightgray",
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.primary["800"]
+        : theme.palette.primary["400"],
     overflow: "hidden",
     padding: `4.5rem ${theme.spacing(3)}px`,
     display: "flex",

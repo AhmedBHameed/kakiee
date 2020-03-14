@@ -1,21 +1,36 @@
 import React from "react";
+import clsx from "clsx";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { MimTheme, DarkTheme } from "../styles/app.style";
 import { Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { IInitAppState } from "../@lib/store/nodeys-dashboard/rootReducer";
+import { useSelector, useDispatch } from "react-redux";
 import { Notification } from "../@lib/components/notification/notification";
 import { ROUTER } from "../config";
 import AccessPage from "../pages/access/access.page";
 import Kakiee from "../pages/kakiee/kakiee.page";
 import { useGlobalStyle } from "../@lib/styles/lib.style";
+import { IStore } from "../models";
 import Protected from "../pages/protected/protected";
+import { useStyle } from "./style.routes";
 
 const Wrapper: React.FC<any> = () => {
   const gStyles = useGlobalStyle();
-  const notify = useSelector((state: IInitAppState) => state.notificationMsg);
+  const notify = useSelector(
+    (state: IStore.IAppState) => state.notificationMsg
+  );
+  const themeType = useSelector((state: IStore.IAppState) => state.themeType);
+  const classes = useStyle();
 
   return (
-    <>
-      <div className={gStyles.h100}>
+    <ThemeProvider theme={themeType === "light" ? MimTheme : DarkTheme}>
+      <div
+        className={clsx(
+          gStyles.h100,
+          themeType === "light"
+            ? classes.backgroundLightColor
+            : classes.backgroundDarkColor
+        )}
+      >
         <Switch>
           <Route
             path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
@@ -43,7 +58,7 @@ const Wrapper: React.FC<any> = () => {
           horizontal: "right"
         }}
       />
-    </>
+    </ThemeProvider>
   );
 };
 export default Wrapper;

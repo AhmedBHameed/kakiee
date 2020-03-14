@@ -1,12 +1,49 @@
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeOptions
+} from "@material-ui/core/styles";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import grey from "@material-ui/core/colors/grey";
+import teal from "@material-ui/core/colors/teal";
 
-export const MimTheme = createMuiTheme({
+const themeOption: ThemeOptions = {
   palette: {
-    // primary: {
-    //   main: "#000"
-    // },
+    type: "light",
+    background: {
+      default: "#fafafa"
+    },
+    primary: {
+      ...grey
+    },
     secondary: {
       main: "#228896"
+    },
+    text: {
+      primary: "#000",
+      secondary: grey["600"]
+    }
+  }
+};
+
+export const MimTheme = createMuiTheme(themeOption);
+export const DarkTheme = createMuiTheme({
+  ...themeOption,
+  palette: {
+    ...themeOption.palette,
+    type: "dark",
+    background: {
+      default: blueGrey["900"]
+    },
+    primary: {
+      ...blueGrey
+    },
+    secondary: {
+      main: teal["300"] // Color of the navigation underline
+    },
+    text: {
+      primary: "#fff",
+      secondary: grey["400"]
     }
   }
 });

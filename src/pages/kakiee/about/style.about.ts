@@ -2,12 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyle = makeStyles(theme => ({
   container: {
-    background: "lightgray",
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.primary["800"]
+        : theme.palette.primary["400"],
     overflow: "hidden",
     position: "relative"
-  },
-  subtitleColor: {
-    color: "gray"
   },
   ahmedSvg: {
     transform: "translateX(100%)",
@@ -27,7 +27,14 @@ export const useStyle = makeStyles(theme => ({
     fontStyle: "italic",
     transform: "translate(-70%, -50%)",
     fontWeight: "bold",
-    opacity: 0
+    opacity: 0,
+    color: theme.palette.text.primary
+  },
+  titleColor: {
+    color: theme.palette.text.primary
+  },
+  subtitleColor: {
+    color: theme.palette.text.secondary
   },
   hi: {
     fontFamily: `'Fredericka the Great', cursive`,

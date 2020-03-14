@@ -16,7 +16,10 @@ export const useStyle = makeStyles(theme => ({
     alignItems: "center"
   },
   iconContent: {
-    background: "rgba(0,0,0,0.05)",
+    background:
+      theme.palette.type === "dark"
+        ? theme.palette.primary["800"]
+        : theme.palette.primary["400"],
     borderRadius: "50%",
     width: 100,
     height: 100,
@@ -39,9 +42,10 @@ export const useStyle = makeStyles(theme => ({
   },
   title: {
     marginBottom: 20,
-    letterSpacing: 2
+    letterSpacing: 2,
+    color: theme.palette.text.primary
   },
   subtitleColor: {
-    color: "gray"
+    color: theme.palette.text.secondary
   }
 }));

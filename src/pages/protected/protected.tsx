@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser } from "../../@lib/store/kakiee/actions";
-import { IInitAppState } from "../../@lib/store/kakiee/rootReducer";
+import { IStore } from "../../models";
 import { IProtectedOpt } from "../../@lib/store/kakiee/reducers";
 import { RenderComponent } from "./protected.conf";
 
@@ -17,7 +17,9 @@ const Protected: React.FC<FCProps> = ({
   onFailRedirectTo
 }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state: IInitAppState) => state.userProfile);
+  const currentUser = useSelector(
+    (state: IStore.IAppState) => state.userProfile
+  );
 
   const [protectionOpt, setProtectionOpt] = useState<IProtectedOpt>({
     isRequestFetched: false,

@@ -1,14 +1,16 @@
-import React, { useCallback, SyntheticEvent } from "react";
+import React, { useCallback, SyntheticEvent, useState } from "react";
 import { RouteComponentProps, NavLink, Link } from "react-router-dom";
 import clsx from "clsx";
-import { ROUTER } from "../../../config";
+import { useDispatch } from "react-redux";
 import { getToken } from "../../../@lib/util";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
-// import { IUserProfileState } from "../../../@lib/store/kakiee/reducers";
 import { useStyle } from "./style.navigation-list";
+import { IconButton } from "@material-ui/core";
+import { changeAppTheme } from "../../../@lib/store/kakiee/actions";
+import { ROUTER } from "../../../config";
+import { WbSunny, NightsStay } from "@material-ui/icons";
 
 type IDashboardNavigation = {
-  // user?: IUserProfileState;
   handleLogout?: (e: SyntheticEvent) => boolean;
 };
 
@@ -16,6 +18,8 @@ const NavigationList: React.FC<RouteComponentProps<any> &
   IDashboardNavigation> = ({ handleLogout }) => {
   const classes = useStyle();
   const gStyle = useGlobalStyle();
+  const dispatch = useDispatch();
+  const [theme, setTheme] = useState("light");
 
   const scrollTop = useCallback((match, location) => {
     if (!!match) {
@@ -26,6 +30,12 @@ const NavigationList: React.FC<RouteComponentProps<any> &
     }
     return match;
   }, []);
+
+  const themeTogle = useCallback(() => {
+    const currentTheme = theme === "light" ? "dark" : "light";
+    setTheme(currentTheme);
+    dispatch(changeAppTheme(currentTheme));
+  }, [theme, dispatch]);
 
   return (
     <ul className={clsx(classes.list, gStyle.txtCenter)}>
@@ -94,6 +104,15 @@ const NavigationList: React.FC<RouteComponentProps<any> &
           </Link>
         </li>
       )}
+      <li>
+        <IconButton onClick={() => themeTogle()} aria-label="Menu">
+          {theme === "light" ? (
+            <NightsStay fontSize="large" />
+          ) : (
+            <WbSunny fontSize="large" />
+          )}
+        </IconButton>
+      </li>
     </ul>
   );
 };

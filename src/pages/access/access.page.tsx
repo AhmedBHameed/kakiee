@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Card, Grid, Container, Paper, Tabs, Tab } from "@material-ui/core";
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { useStyles } from "./style.access";
-import { useSelector } from "react-redux";
 import { ROUTER } from "../../config";
-import { IInitAppState } from "../../@lib/store/nodeys-dashboard/rootReducer";
 import Login from "./routes/login/login";
 import Register from "./routes/register/register";
 import Activation from "./routes/activation/activation";
 import ForgetPassword from "./routes/forget-pass/forget-pass";
 import ChangePass from "./routes/change-password/change-pass";
 
-const AccessPage: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
+const AccessPage: React.FC<RouteComponentProps<any>> = ({
+  history,
+  match,
+  location
+}) => {
   const classes = useStyles();
-  const router = useSelector((state: IInitAppState) => state.router);
 
   const [tabValue, setTabValue] = useState<number>(
     match.url === `${match.url}/${ROUTER.REGISTER.path}` ? 1 : 0
@@ -30,14 +31,12 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
 
   useEffect(() => {
     setTabValue(() =>
-      router.location.pathname === `${match.url}/${ROUTER.REGISTER.path}`
-        ? 1
-        : 0
+      location.pathname === `${match.url}/${ROUTER.REGISTER.path}` ? 1 : 0
     );
-  }, [match.url, router.location.pathname]);
+  }, [match.url, location.pathname]);
 
   return (
-    <Container maxWidth="sm" className={classes.fullHight}>
+    <Container>
       <Grid
         container
         className={classes.fullHight}

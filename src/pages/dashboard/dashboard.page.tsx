@@ -1,8 +1,8 @@
 import React, { useCallback, SyntheticEvent } from "react";
 import { RouteComponentProps, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Content from "../components/content/content";
-import { IInitAppState } from "../../@lib/store/kakiee/rootReducer";
+// import { IStore } from "../../models";
 import { ROUTER } from "../../config";
 import { resetAppState } from "../../@lib/store/kakiee/actions";
 import { removeToken } from "../../@lib/util";
@@ -15,7 +15,7 @@ import Articals from "./articals/articals.page";
 const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const currentUser = useSelector((state: IInitAppState) => state.userProfile);
+  // const currentUser = useSelector((state: IStore.IAppState) => state.userProfile);
 
   const handleLogout = useCallback(
     (e: SyntheticEvent) => {

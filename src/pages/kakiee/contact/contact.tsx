@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { get } from "lodash";
 import MapGL, { Marker } from "react-map-gl";
 import clsx from "clsx";
@@ -29,6 +29,7 @@ import { END_POINT } from "config";
 import { notify } from "../../../@lib/store/kakiee/actions";
 import { specialChar } from "../../../@lib/util";
 import { useTranslation } from "react-i18next";
+import { IStore } from "../../../models";
 
 const viewport = {
   width: "100%",
@@ -42,6 +43,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const appStyles = useAppStyle();
   const classes = useStyle();
   const { t } = useTranslation();
+  const themeType = useSelector((state: IStore.IAppState) => state.themeType);
 
   const [form] = useState({
     state: {
@@ -77,6 +79,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   });
 
   const dispatch = useDispatch();
+
   const [heightAxis, setHeightAxis] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const leftContainerEl = useRef<HTMLDivElement>(null);
@@ -455,7 +458,9 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         // zoom={viewport.viewport.zoom}
         width="100%"
         height="500px"
-        // mapStyle="mapbox://styles/mapbox/dark-v9"
+        mapStyle={`mapbox://styles/mapbox/${
+          themeType === "dark" ? "dark-v9" : "light-v8"
+        }`}
       >
         <Marker
           longitude={viewport.longitude}

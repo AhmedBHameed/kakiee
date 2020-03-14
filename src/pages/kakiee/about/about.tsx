@@ -78,7 +78,11 @@ const About: React.FC<any> = props => {
       </div>
       <Content>
         <Grid item xs={12} className={appStyles.sectionSpacingTop}>
-          <Typography variant="h6" className={classes.sectionOpt} gutterBottom>
+          <Typography
+            variant="h6"
+            className={clsx(classes.titleColor, classes.sectionOpt)}
+            gutterBottom
+          >
             {t("about.aboutKakiee")}
           </Typography>
           <Typography
@@ -90,7 +94,11 @@ const About: React.FC<any> = props => {
           </Typography>
         </Grid>
         <Grid item xs={12} className={appStyles.sectionSpacingTop}>
-          <Typography variant="h6" className={classes.sectionOpt} gutterBottom>
+          <Typography
+            variant="h6"
+            className={clsx(classes.titleColor, classes.sectionOpt)}
+            gutterBottom
+          >
             {t("about.whatIDo")}
           </Typography>
         </Grid>
@@ -135,7 +143,11 @@ const About: React.FC<any> = props => {
           xs={12}
           className={clsx(appStyles.sectionSpacingTop, gStyles["margin-top-5"])}
         >
-          <Typography variant="h6" className={classes.sectionOpt} gutterBottom>
+          <Typography
+            variant="h6"
+            className={clsx(classes.titleColor, classes.sectionOpt)}
+            gutterBottom
+          >
             {t("about.contactMe")}
           </Typography>
           <Typography
