@@ -50,7 +50,7 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
           onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
-          to={`${match.path}/${ROUTER.NEWARTICAL.path}`}
+          to={`${match.path}/${ROUTER.ARTICAL.path}/${ROUTER.NEW_ARTICAL.path}`}
           exact
         >
           {t("dashbaord.asideMenu.newArtical")}

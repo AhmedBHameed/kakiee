@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // import clsx from "clsx";
@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 
 const MainDash: React.FC<RouteComponentProps<any>> = props => {
   const { t } = useTranslation();
+  useEffect(() => console.log("CALLED!"), []);
   return <h1>DASHBOARD MAIN PAGE</h1>;
 };
 

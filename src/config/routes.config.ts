@@ -36,7 +36,13 @@ export const ROUTER = {
   ARTICALS: {
     path: "articals"
   },
-  NEWARTICAL: {
+  ARTICAL: {
     path: "new-artical"
+  },
+  UPDATE_ARTICAL: {
+    path: "update"
+  },
+  NEW_ARTICAL: {
+    path: "new"
   }
 };

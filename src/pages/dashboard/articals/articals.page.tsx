@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import clsx from "clsx";
 import { RouteComponentProps } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,7 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useFormReducer } from "@lib/services";
+import { useFormReducer, IFormValidation } from "@lib/services";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.articals";
 import { converter } from "./config";
@@ -36,11 +36,12 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
     "write"
   );
 
-  const [form] = useState({
+  const [form] = useState<{ state: any; validators: IFormValidation }>({
     state: {
       subject: "",
       artical: `**Write your artical here**`,
-      publish: false
+      publish: false,
+      categories: []
     },
     validators: {
       subject: {
@@ -50,9 +51,26 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
       artical: {
         required: true,
         requiredLocales: t("validators.required")
+      },
+      categories: {
+        validators: [
+          {
+            validate: v => Array.isArray(v.categories) && !!v.categories.length,
+            error: t("validators.required")
+          }
+        ]
       }
     }
   });
+
+  const handleTagsChange = useCallback((_, value: any) => {
+    handleOnChange({
+      target: {
+        name: "categories",
+        value
+      }
+    });
+  }, []);
 
   const { state, handleOnChange, handleOnSubmit } = useFormReducer(
     form.state,
@@ -67,6 +85,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
   );
 
   useEffect(() => {
+    console.log("CALLED!");
     setTimeout(() => {
       setCategories(s => {
         s.push({ title: "CSS", year: "002" });
@@ -147,9 +166,8 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               disableCloseOnSelect
               options={categories}
               getOptionLabel={option => option.title}
-              defaultValue={[categories[0]]}
-              value={state.formData.category}
-              onChange={handleOnChange}
+              value={state.formData.categories}
+              onChange={handleTagsChange}
               renderOption={(option, { selected }) => (
                 <>
                   <Checkbox style={{ marginRight: 8 }} checked={selected} />
@@ -159,6 +177,7 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               renderInput={params => (
                 <TextField
                   {...params}
+                  className={appStyles.fieldsBackground}
                   variant="outlined"
                   label="Artical category"
                   placeholder="Category"
@@ -168,11 +187,11 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
                       focused: appStyles.fieldsLabelColor
                     }
                   }}
-                  InputProps={{
-                    classes: { root: appStyles.fieldsBackground }
-                  }}
                 />
               )}
+              classes={{
+                input: appStyles.fieldsBackground
+              }}
             />
           </FormControl>
         </Grid>
@@ -236,44 +255,6 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
                 />
               )}
             </Button>
-
-            {/* <FormHelperText
-              id="email"
-              component={"div"}
-              margin="dense"
-              className={classes.errorColor}
-            >
-              <ul className={gStyles["padding-right-2"]}>
-                {state.submitted &&
-                [
-                  ...state.controllers.artical.errors,
-                  ...state.controllers.subject.errors
-                ].some(
-                  error => error.indexOf(t("validators.required")) > -1
-                ) ? (
-                  <li>
-                    <small>{t("validators.allRequired")}</small>
-                  </li>
-                ) : (
-                  ""
-                )}
-
-                {state.submitted &&
-                  [
-                    ...state.controllers.email.errors,
-                    ...state.controllers.name.errors,
-                    ...state.controllers.message.errors,
-                    ...state.controllers.subject.errors
-                  ].map((error, i) => {
-                    if (error.indexOf(t("validators.required")) > -1) return "";
-                    return (
-                      <li key={`email-error-${i.toString()}`}>
-                        <small>{error}</small>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </FormHelperText> */}
           </FormControl>
         </Grid>
       </form>

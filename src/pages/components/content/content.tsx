@@ -10,9 +10,8 @@ type IContent = {
   };
 };
 const Content: React.FC<IContent> = ({ children, classes = {} }) => {
-  //   const appStyles = useAppStyle();
   const gStyles = useGlobalStyle();
-  //   const classes = useStyles();
+
   return (
     <Container
       maxWidth="xl"

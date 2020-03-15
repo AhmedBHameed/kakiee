@@ -1,4 +1,4 @@
-import React, { useCallback, SyntheticEvent } from "react";
+import React, { useCallback, SyntheticEvent, useMemo } from "react";
 import { RouteComponentProps, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Content from "../components/content/content";
@@ -26,6 +26,29 @@ const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
     [dispatch]
   );
 
+  const memoRoutes = useMemo(
+    () => (
+      <>
+        <Route
+          path={`${mainProps.match.path}`}
+          exact
+          render={props => <MainDash {...props} />}
+        />
+        <Route
+          path={`${mainProps.match.path}/${ROUTER.ARTICAL.path}/${ROUTER.NEW_ARTICAL.path}`}
+          exact
+          render={props => <Articals {...props} />}
+        />
+        <Route
+          path={`${mainProps.match.path}/${ROUTER.ARTICAL.path}/${ROUTER.UPDATE_ARTICAL.path}/:articalId`}
+          exact
+          render={props => <Articals {...props} />}
+        />
+      </>
+    ),
+    []
+  );
+
   return (
     <NavbarAside
       menuComponent={
@@ -38,16 +61,7 @@ const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
           container: classes.contentContainer
         }}
       >
-        <Route
-          path={`${mainProps.match.path}`}
-          exact
-          render={props => <MainDash {...props} />}
-        />
-        <Route
-          path={`${mainProps.match.path}/${ROUTER.NEWARTICAL.path}`}
-          exact
-          render={props => <Articals {...props} />}
-        />
+        {memoRoutes}
       </Content>
     </NavbarAside>
   );
