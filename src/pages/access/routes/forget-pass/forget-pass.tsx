@@ -17,10 +17,9 @@ import { RouteComponentProps } from "react-router-dom";
 import {
   httpClient,
   IAxiosErrorResponse,
-  catchError,
-  useFormReducer
+  catchError
 } from "../../../../@lib/services";
-import { IFormValidation } from "../../../../@lib/services/form-builder/models/form-builder-validation.model";
+import { IFormValidation, useFormReducer } from "../../../../@lib/hooks";
 import { IForgetPassGQL, forgetPassGQL } from "../../../../queries";
 import { ROUTER, END_POINT } from "../../../../config";
 import { notify } from "../../../../@lib/store/nodeys-dashboard/actions";

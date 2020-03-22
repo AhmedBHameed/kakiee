@@ -12,7 +12,9 @@ import { useStyle } from "./style.dashboard";
 import MainDash from "./main/main.page";
 import Articals from "./articals/articals.page";
 
-const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
+type IDashboard = RouteComponentProps<any> & { handleToggleTheme: () => void };
+
+const Dashboard: React.FC<IDashboard> = mainProps => {
   const classes = useStyle();
   const dispatch = useDispatch();
   // const currentUser = useSelector((state: IStore.IAppState) => state.userProfile);
@@ -30,29 +32,32 @@ const Dashboard: React.FC<RouteComponentProps<any>> = mainProps => {
     () => (
       <>
         <Route
-          path={`${mainProps.match.path}`}
+          path={`${mainProps.match.url}`}
           exact
           render={props => <MainDash {...props} />}
         />
         <Route
-          path={`${mainProps.match.path}/${ROUTER.ARTICAL.path}/${ROUTER.NEW_ARTICAL.path}`}
+          path={`${mainProps.match.url}/${ROUTER.ARTICAL.path}/${ROUTER.NEW_ARTICAL.path}`}
           exact
           render={props => <Articals {...props} />}
         />
         <Route
-          path={`${mainProps.match.path}/${ROUTER.ARTICAL.path}/${ROUTER.UPDATE_ARTICAL.path}/:articalId`}
+          path={`${mainProps.match.url}/${ROUTER.ARTICAL.path}/${ROUTER.UPDATE_ARTICAL.path}/:articalId`}
           exact
           render={props => <Articals {...props} />}
         />
       </>
     ),
-    []
+    [mainProps.match.url]
   );
-
   return (
     <NavbarAside
       menuComponent={
-        <DashboardNavigation handleLogout={handleLogout} {...mainProps} />
+        <DashboardNavigation
+          handleToggleTheme={mainProps.handleToggleTheme}
+          handleLogout={handleLogout}
+          {...mainProps}
+        />
       }
       {...mainProps}
     >

@@ -15,7 +15,6 @@ import {
   CircularProgress
 } from "@material-ui/core";
 import {
-  useFormReducer,
   IAxiosErrorResponse,
   httpClient,
   catchError
@@ -30,6 +29,7 @@ import { notify } from "../../../@lib/store/kakiee/actions";
 import { specialChar } from "../../../@lib/util";
 import { useTranslation } from "react-i18next";
 import { IStore } from "../../../models";
+import { useFormReducer, IFormValidation } from "../../../@lib";
 
 const viewport = {
   width: "100%",
@@ -45,7 +45,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const { t } = useTranslation();
   const themeType = useSelector((state: IStore.IAppState) => state.themeType);
 
-  const [form] = useState({
+  const [form] = useState<{ state: any; validators: IFormValidation }>({
     state: {
       name: "",
       subject: "",

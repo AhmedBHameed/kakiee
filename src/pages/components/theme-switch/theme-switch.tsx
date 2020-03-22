@@ -1,20 +1,20 @@
-import React, { useCallback } from "react";
-import { IconButton, useTheme } from "@material-ui/core";
+import React, { useCallback, useState } from "react";
+import { IconButton } from "@material-ui/core";
 import { NightsStay, WbSunny } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
-import { changeAppTheme } from "../../../@lib/store/kakiee/actions";
+import { storedThemeType } from "../../../@lib/services";
 
-const ThemeSwitch: React.FC<any> = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
+const ThemeSwitch: React.FC<{ onToggleTheme: () => void }> = ({
+  onToggleTheme = () => {}
+}) => {
+  const [isLightTheme, setIsLightTheme] = useState(storedThemeType === "light");
   const themeTogle = useCallback(() => {
-    const currentTheme = theme.palette.type === "light" ? "dark" : "light";
-    dispatch(changeAppTheme(currentTheme));
-  }, [dispatch, theme.palette.type]);
+    onToggleTheme();
+    setIsLightTheme(s => !s);
+  }, [setIsLightTheme, onToggleTheme]);
 
   return (
-    <IconButton onClick={() => themeTogle()} aria-label="Menu">
-      {theme.palette.type === "light" ? (
+    <IconButton onClick={themeTogle} aria-label="Menu">
+      {isLightTheme ? (
         <NightsStay fontSize="large" />
       ) : (
         <WbSunny fontSize="large" />

@@ -20,10 +20,8 @@ import { RouteComponentProps } from "react-router-dom";
 import {
   httpClient,
   IAxiosErrorResponse,
-  catchError,
-  useFormReducer
+  catchError
 } from "../../../../@lib/services";
-import { IFormValidation } from "../../../../@lib/services/form-builder/models/form-builder-validation.model";
 import { registerUserGQL, IRegisterUserGQL } from "../../../../queries";
 import { END_POINT } from "../../../../config";
 import { notify } from "../../../../@lib/store/nodeys-dashboard/actions";
@@ -31,6 +29,7 @@ import { useStyles } from "./style.register";
 import { useDispatch } from "react-redux";
 import { useGlobalStyle } from "../../../../@lib/styles/lib.style";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { IFormValidation, useFormReducer } from "../../../../@lib";
 
 const formModel = {
   email: "",

@@ -1,4 +1,4 @@
-import React, { useCallback, SyntheticEvent, useState } from "react";
+import React, { useCallback, SyntheticEvent } from "react";
 import { RouteComponentProps, NavLink, Link, match } from "react-router-dom";
 import clsx from "clsx";
 import { getToken } from "../../../@lib/util";
@@ -9,14 +9,15 @@ import { ThemeSwitch } from "../../components";
 
 type IDashboardNavigation = {
   handleLogout?: (e: SyntheticEvent) => boolean;
+  handleToggleTheme: () => void;
 };
 
 const NavigationList: React.FC<RouteComponentProps<any> &
-  IDashboardNavigation> = ({ handleLogout }) => {
+  IDashboardNavigation> = ({ handleLogout, handleToggleTheme }) => {
   const classes = useStyle();
   const gStyle = useGlobalStyle();
 
-  const isActive = useCallback((match: match<any>) => !!match?.isExact, []);
+  const isActive = useCallback((m: match<any>) => !!m?.isExact, []);
 
   const scrollTop = useCallback(() => {
     window.scrollTo({
@@ -96,7 +97,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
         </li>
       )}
       <li>
-        <ThemeSwitch />
+        <ThemeSwitch onToggleTheme={handleToggleTheme} />
       </li>
     </ul>
   );

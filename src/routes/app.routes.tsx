@@ -20,9 +20,11 @@ const Wrapper: React.FC<any> = () => {
   const notify = useSelector(
     (state: IStore.IAppState) => state.notificationMsg
   );
-  const themeType = useSelector((state: IStore.IAppState) => state.themeType);
-  const { theme } = useThemeSwitcher(themeType);
-  const themeConfig = createMuiTheme(theme);
+
+  const { theme, handleToggleTheme } = useThemeSwitcher();
+  const appTheme = createMuiTheme(theme);
+
+  // setTimeout(() => toggleTheme(), 2000);
 
   const memoRoutes = useMemo(
     () => (
@@ -34,6 +36,7 @@ const Wrapper: React.FC<any> = () => {
               importedComponent={import("../pages/dashboard/dashboard.page")}
               onFailRedirectTo={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
               {...props}
+              data={{ handleToggleTheme }}
             />
           )}
         />
@@ -41,18 +44,24 @@ const Wrapper: React.FC<any> = () => {
           path={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}`}
           component={AccessPage}
         />
-        <Route path={`${ROUTER.ROOT.path}`} exact component={Kakiee} />
+        <Route
+          path={`${ROUTER.ROOT.path}`}
+          exact
+          component={props => (
+            <Kakiee handleToggleTheme={handleToggleTheme} {...props} />
+          )}
+        />
       </Switch>
     ),
-    []
+    [handleToggleTheme]
   );
 
   return (
-    <MuiThemeProvider theme={themeConfig}>
+    <MuiThemeProvider theme={appTheme}>
       <div
         className={clsx(
           gStyles.h100,
-          theme.palette?.type === "light"
+          appTheme.palette.type === "light"
             ? classes.backgroundLightColor
             : classes.backgroundDarkColor
         )}

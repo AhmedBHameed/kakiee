@@ -1,5 +1,10 @@
 import React, { useCallback, SyntheticEvent } from "react";
-import { RouteComponentProps, NavLink, Link, match } from "react-router-dom";
+import {
+  RouteComponentProps,
+  NavLink,
+  Link,
+  match as IMatch
+} from "react-router-dom";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { ROUTER } from "../../../config";
@@ -11,15 +16,16 @@ import { ThemeSwitch } from "../../components";
 type IDashboardNavigation = {
   // user?: IUserProfileState;
   handleLogout?: (e: SyntheticEvent) => boolean;
+  handleToggleTheme: () => void;
 };
 
 const DashboardNavigation: React.FC<RouteComponentProps<any> &
-  IDashboardNavigation> = ({ handleLogout, match }) => {
+  IDashboardNavigation> = ({ handleLogout, match, handleToggleTheme }) => {
   const classes = useStyle();
   const gStyle = useGlobalStyle();
   const { t } = useTranslation();
 
-  const isActive = useCallback((match: match<any>) => !!match?.isExact, []);
+  const isActive = useCallback((m: IMatch<any>) => !!m?.isExact, []);
 
   const scrollTop = useCallback(() => {
     window.scrollTo({
@@ -77,7 +83,7 @@ const DashboardNavigation: React.FC<RouteComponentProps<any> &
         </li>
       )}
       <li>
-        <ThemeSwitch />
+        <ThemeSwitch onToggleTheme={handleToggleTheme} />
       </li>
     </ul>
   );

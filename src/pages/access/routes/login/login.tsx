@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { get } from "lodash";
 import clsx from "clsx";
 import {
@@ -16,22 +17,20 @@ import {
   InputAdornment,
   IconButton
 } from "@material-ui/core";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import {
   httpClient,
   IAxiosErrorResponse,
-  catchError,
-  useFormReducer
+  catchError
 } from "../../../../@lib/services";
 import { setToken } from "../../../../@lib/util";
-import { IFormValidation } from "../../../../@lib/services/form-builder/models/form-builder-validation.model";
 import { IGetTokenGQL, getTokenGQL } from "../../../../queries";
 import { ROUTER, END_POINT } from "../../../../config";
 import { notify } from "../../../../@lib/store/nodeys-dashboard/actions";
 import { useStyles } from "./style.login";
 import { useDispatch } from "react-redux";
 import { useGlobalStyle } from "../../../../@lib/styles/lib.style";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { IFormValidation, useFormReducer } from "../../../../@lib";
 
 const formModel = {
   email: "",
@@ -93,66 +92,63 @@ const Login: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
     }
   );
 
-  const loginOrRegister = useCallback(
-    (isValid: boolean, data: any) => {
-      if (isValid) {
-        setSubmitted(true);
-        setLoading(true);
-        httpClient
-          .post(
-            END_POINT.API_USER_AUTH,
-            getTokenGQL({
-              email: data.email,
-              password: data.password
-            })
-          )
-          .then((res: IGetTokenGQL) => {
-            setLoading(false);
-            if (!!res.data) {
-              if (!!res.data.getToken.isAuthenticated) {
-                setToken(res.data.getToken.token, "kakieeToken");
-                dispatch(
-                  notify({
-                    open: true,
-                    message: `Welcome`,
-                    type: "success"
-                  })
-                );
-                history.push(`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`);
-                return;
-              }
-              // if( get(res, "data.errors[0].extensions.code", "") ===  "ER_004_AUTH") {
-              // }
+  const loginOrRegister = (isValid: boolean, data: any) => {
+    if (isValid) {
+      setSubmitted(true);
+      setLoading(true);
+      httpClient
+        .post(
+          END_POINT.API_USER_AUTH,
+          getTokenGQL({
+            email: data.email,
+            password: data.password
+          })
+        )
+        .then((res: IGetTokenGQL) => {
+          setLoading(false);
+          if (!!res.data) {
+            if (!!res.data.getToken.isAuthenticated) {
+              setToken(res.data.getToken.token, "kakieeToken");
               dispatch(
                 notify({
                   open: true,
-                  message: get(
-                    res,
-                    "errors[0].message",
-                    "Can't handle server respond"
-                  ),
-                  type: "error"
+                  message: `Welcome`,
+                  type: "success"
                 })
               );
-            } else {
-              throw new Error("Something went wrong!");
+              history.push(`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`);
+              return;
             }
-          })
-          .catch((e: IAxiosErrorResponse) => {
-            setLoading(false);
-            catchError(
-              get(
-                e,
-                "serverRespond.errors[0].message",
-                "Can't handle server respond"
-              ),
-              dispatch
+            // if( get(res, "data.errors[0].extensions.code", "") ===  "ER_004_AUTH") {
+            // }
+            dispatch(
+              notify({
+                open: true,
+                message: get(
+                  res,
+                  "errors[0].message",
+                  "Can't handle server respond"
+                ),
+                type: "error"
+              })
             );
-          });
-      }
-    },
-    [history, dispatch]
-  );
+          } else {
+            throw new Error("Something went wrong!");
+          }
+        })
+        .catch((e: IAxiosErrorResponse) => {
+          setLoading(false);
+          catchError(
+            get(
+              e,
+              "serverRespond.errors[0].message",
+              "Can't handle server respond"
+            ),
+            dispatch
+          );
+        });
+    }
+  };
 
   return (
     <form onSubmit={handleOnSubmit}>

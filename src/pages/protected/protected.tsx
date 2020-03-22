@@ -9,12 +9,14 @@ import { RenderComponent } from "./protected.conf";
 type FCProps = {
   importedComponent: Promise<any>;
   onFailRedirectTo: string;
+  data?: any;
 } & RouteComponentProps<any>;
 
 const Protected: React.FC<FCProps> = ({
   match,
   importedComponent,
-  onFailRedirectTo
+  onFailRedirectTo,
+  data
 }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(
@@ -46,7 +48,8 @@ const Protected: React.FC<FCProps> = ({
           {
             ...props
           },
-          protectionOpt
+          protectionOpt,
+          data
         )
       }
     />

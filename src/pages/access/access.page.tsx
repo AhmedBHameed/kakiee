@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import clsx from "clsx";
 import { Card, Grid, Paper, Tabs, Tab } from "@material-ui/core";
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
@@ -36,6 +36,39 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({
     );
   }, [match.url, location.pathname]);
 
+  const memoRoutes = useMemo(
+    () => (
+      <>
+        <Route
+          path={`${match.url}/${ROUTER.LOGIN.path}`}
+          exact
+          component={props => <Login {...props} />}
+        />
+        <Route
+          path={`${match.url}/${ROUTER.REGISTER.path}`}
+          exact
+          component={props => <Register {...props} />}
+        />
+        <Route
+          path={`${match.url}/${ROUTER.FORGET_PASS.path}`}
+          exact
+          component={props => <ForgetPassword {...props} />}
+        />
+        <Route
+          path={`${match.url}/${ROUTER.CHANGE_PASS.path}/:verificationId`}
+          exact
+          component={props => <ChangePass {...props} />}
+        />
+        <Route
+          path={`${match.url}/${ROUTER.ACTIVATE.path}/:verificationId`}
+          exact
+          component={props => <Activation {...props} />}
+        />
+      </>
+    ),
+    [match.url]
+  );
+
   return (
     <div className={clsx(classes.backgroundColor, classes.fullScreen)}>
       <Grid
@@ -65,31 +98,7 @@ const AccessPage: React.FC<RouteComponentProps<any>> = ({
                 match.isExact && (
                   <Redirect to={`${match.url}/${ROUTER.LOGIN.path}`} />
                 )}
-              <Route
-                path={`${match.path}/${ROUTER.LOGIN.path}`}
-                exact
-                component={props => <Login {...props} />}
-              />
-              <Route
-                path={`${match.path}/${ROUTER.REGISTER.path}`}
-                exact
-                component={props => <Register {...props} />}
-              />
-              <Route
-                path={`${match.path}/${ROUTER.FORGET_PASS.path}`}
-                exact
-                component={props => <ForgetPassword {...props} />}
-              />
-              <Route
-                path={`${match.path}/${ROUTER.CHANGE_PASS.path}/:verificationId`}
-                exact
-                component={props => <ChangePass {...props} />}
-              />
-              <Route
-                path={`${match.path}/${ROUTER.ACTIVATE.path}/:verificationId`}
-                exact
-                component={props => <Activation {...props} />}
-              />
+              {memoRoutes}
             </Paper>
           </Card>
         </Grid>

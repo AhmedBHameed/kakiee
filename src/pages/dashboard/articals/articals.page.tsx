@@ -15,7 +15,6 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useFormReducer, IFormValidation } from "@lib/services";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.articals";
 import { converter } from "./config";
@@ -24,6 +23,8 @@ import { useAppStyle } from "../../../styles/app.style";
 import "highlight.js/scss/github.scss";
 import "./artical.scss";
 import { useEffect } from "react";
+import ImageUploader from "../../../pages/components/image-uploader/image-uploader";
+import { useFormReducer, IFormValidation } from "../../../@lib";
 
 const Articals: React.FC<RouteComponentProps<any>> = props => {
   const { t } = useTranslation();
@@ -39,9 +40,10 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
   const [form] = useState<{ state: any; validators: IFormValidation }>({
     state: {
       subject: "",
+      categories: [],
+      image: "",
       artical: `**Write your artical here**`,
-      publish: false,
-      categories: []
+      publish: false
     },
     validators: {
       subject: {
@@ -83,6 +85,15 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
       console.log(isValid, data);
     }
   );
+
+  const hangleImageChange = (value: string) => {
+    handleOnChange({
+      target: {
+        name: "image",
+        value
+      }
+    });
+  };
 
   useEffect(() => {
     console.log("CALLED!");
@@ -192,6 +203,14 @@ const Articals: React.FC<RouteComponentProps<any>> = props => {
               classes={{
                 input: appStyles.fieldsBackground
               }}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl className={clsx(gStyles.w100, gStyles["margin-top-2"])}>
+            <ImageUploader
+              src={state.formData.image as string}
+              onImageChange={hangleImageChange}
             />
           </FormControl>
         </Grid>

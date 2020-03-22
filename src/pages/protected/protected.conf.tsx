@@ -3,6 +3,10 @@ import { RouteComponentProps } from "react-router-dom";
 import LoadingPage from "../loading-page/loading-page";
 import { IProtectedOpt } from "../../@lib/store/kakiee/reducers";
 
+type RouteComponentPropsExtra = RouteComponentProps & {
+  [key: string]: any;
+};
+
 const LoadPage = (importedPage: any, protectionOpt: IProtectedOpt) => {
   return lazy(() =>
     Promise.all([
@@ -19,7 +23,7 @@ const LoadPage = (importedPage: any, protectionOpt: IProtectedOpt) => {
 
 const WaitingComponent = (
   Component: Promise<any>,
-  props: RouteComponentProps,
+  props: RouteComponentPropsExtra,
   protectionOpt: IProtectedOpt
 ) => {
   return (
@@ -31,10 +35,14 @@ const WaitingComponent = (
 
 export const RenderComponent = (
   component: Promise<any>,
-  props: RouteComponentProps,
-  protectionOpt: IProtectedOpt
+  props: RouteComponentPropsExtra,
+  protectionOpt: IProtectedOpt,
+  data?: any
 ) => {
   protectionOpt.history = !!props.history && props.history;
+  if (!!data) {
+    props.handleToggleTheme = data.handleToggleTheme;
+  }
   return WaitingComponent(
     component,
     {
