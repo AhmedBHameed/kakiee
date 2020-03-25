@@ -9,6 +9,7 @@ import { LinkedIn, GitHub, Email } from "@material-ui/icons";
 import Contact from "./contact/contact";
 import Blog from "./blog/blog";
 import About from "./about/about";
+import HireMe from "./hire-me/hire-me";
 import { ReactComponent as Heart } from "../../static/heart.svg";
 import NavbarAside from "../components/navbar-aside/navbar-aside";
 import NavigationList from "./navigation-list/navigation-list.page";
@@ -76,14 +77,19 @@ const Kakiee: React.FC<RouteComponentProps<any> & {
       render={props => <Blog {...props} />}
     />
     <Route
-      path={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
-      exact
-      render={props => <Contact {...props} />}
-    />
-    <Route
       path={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
       exact
       render={props => <About {...props} />}
+    />
+    <Route
+      path={`${ROUTER.ROOT.path}/${ROUTER.HIREME.path}`}
+      exact
+      render={props => <HireMe {...props} />}
+    />
+    <Route
+      path={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
+      exact
+      render={props => <Contact {...props} />}
     />
   </NavbarAside>
 );

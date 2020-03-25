@@ -26,6 +26,9 @@ export const ROUTER = {
   CONTACT: {
     path: "contact"
   },
+  HIREME: {
+    path: "hire-me"
+  },
   ABOUT: {
     path: "about"
   },

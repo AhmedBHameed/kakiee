@@ -8,22 +8,25 @@ interface IAbout {
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   headerTxt?: string;
   bodyTxt: string;
+  className?: string;
   customClasses?: {
     containerClass?: string;
     bodyTxtClass?: string;
+    headerTxtClass?: string;
   };
 }
 
 const Service: React.FC<IAbout> = ({
   bodyTxt,
   headerTxt,
+  className,
   Icon,
   customClasses
 }) => {
   const classes = useStyle();
 
   return (
-    <div className={classes.serviceContainer}>
+    <div className={clsx(classes.serviceContainer, className)}>
       <div className={classes.iconContainer}>
         <div className={classes.iconContent}>
           <Icon fontSize="large" className={classes.icon} />
@@ -39,7 +42,10 @@ const Service: React.FC<IAbout> = ({
           <Typography
             variant="button"
             display="block"
-            className={classes.title}
+            className={clsx(
+              classes.title,
+              !!customClasses && customClasses.headerTxtClass
+            )}
             gutterBottom
           >
             {headerTxt}
@@ -48,9 +54,10 @@ const Service: React.FC<IAbout> = ({
         <Typography
           variant="subtitle2"
           gutterBottom
-          className={
-            !!customClasses ? customClasses.bodyTxtClass : classes.subtitleColor
-          }
+          className={clsx(
+            classes.subtitleColor,
+            !!customClasses && customClasses.bodyTxtClass
+          )}
         >
           {bodyTxt}
         </Typography>

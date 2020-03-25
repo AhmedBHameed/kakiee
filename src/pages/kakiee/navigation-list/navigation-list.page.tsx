@@ -6,6 +6,7 @@ import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { useStyle } from "./style.navigation-list";
 import { ROUTER } from "../../../config";
 import { ThemeSwitch } from "../../components";
+import { useTranslation } from "react-i18next";
 
 type IDashboardNavigation = {
   handleLogout?: (e: SyntheticEvent) => boolean;
@@ -16,6 +17,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
   IDashboardNavigation> = ({ handleLogout, handleToggleTheme }) => {
   const classes = useStyle();
   const gStyle = useGlobalStyle();
+  const { t } = useTranslation();
 
   const isActive = useCallback((m: match<any>) => !!m?.isExact, []);
 
@@ -61,7 +63,19 @@ const NavigationList: React.FC<RouteComponentProps<any> &
           to={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
           exact
         >
-          ABOUT
+          {t("menu.about")}
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          isActive={isActive}
+          onClick={scrollTop}
+          className={classes.links}
+          activeClassName={classes.activeLink}
+          to={`${ROUTER.ROOT.path}/${ROUTER.HIREME.path}`}
+          exact
+        >
+          {t("menu.hireMe")}
         </NavLink>
       </li>
       <li>
@@ -73,7 +87,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
           to={`${ROUTER.ROOT.path}/${ROUTER.CONTACT.path}`}
           exact
         >
-          CONTACT US
+          {t("menu.contactMe")}
         </NavLink>
       </li>
       {getToken("kakieeToken") ? (
@@ -83,7 +97,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
             onClick={handleLogout}
             to={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
           >
-            LOGOUT
+            {t("menu.logout")}
           </Link>
         </li>
       ) : (
@@ -92,7 +106,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
             className={classes.links}
             to={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}/${ROUTER.LOGIN.path}`}
           >
-            LOGIN
+            {t("menu.login")}
           </Link>
         </li>
       )}

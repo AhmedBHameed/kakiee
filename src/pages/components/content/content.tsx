@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { Container, Grid } from "@material-ui/core";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
+import { useStyle } from "./style.content";
 
 type IContent = {
   classes?: {
@@ -11,11 +12,13 @@ type IContent = {
 };
 const Content: React.FC<IContent> = ({ children, classes = {} }) => {
   const gStyles = useGlobalStyle();
+  const styles = useStyle();
 
   return (
     <Container
       maxWidth="xl"
       className={clsx(
+        styles.container,
         !!classes.container ? classes.container : gStyles["margin-top-5"]
       )}
     >

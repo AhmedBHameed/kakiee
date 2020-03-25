@@ -9,6 +9,9 @@ export const useStyle = makeStyles(theme => ({
     overflow: "hidden",
     position: "relative"
   },
+  noContentTopSpacing: {
+    paddingTop: "0rem !important"
+  },
   ahmedSvg: {
     transform: "translateX(100%)",
     width: 300,

@@ -6,7 +6,9 @@ import { storedThemeType } from "../../../@lib/services";
 const ThemeSwitch: React.FC<{ onToggleTheme: () => void }> = ({
   onToggleTheme = () => {}
 }) => {
-  const [isLightTheme, setIsLightTheme] = useState(storedThemeType === "light");
+  const [isLightTheme, setIsLightTheme] = useState(
+    storedThemeType() === "light"
+  );
   const themeTogle = useCallback(() => {
     onToggleTheme();
     setIsLightTheme(s => !s);
@@ -15,9 +17,9 @@ const ThemeSwitch: React.FC<{ onToggleTheme: () => void }> = ({
   return (
     <IconButton onClick={themeTogle} aria-label="Menu">
       {isLightTheme ? (
-        <NightsStay fontSize="large" />
-      ) : (
         <WbSunny fontSize="large" />
+      ) : (
+        <NightsStay fontSize="large" />
       )}
     </IconButton>
   );

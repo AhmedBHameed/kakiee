@@ -57,7 +57,7 @@ const About: React.FC<any> = props => {
       <div className={classes.container}>
         <Mysvg ref={mySvg} className={classes.ahmedSvg} />
         <div className={classes.captions} ref={captionEl}>
-          <Typography variant="h4" gutterBottom className={clsx(classes.hi)}>
+          <Typography variant="h4" gutterBottom className={classes.hi}>
             {t("about.myname")}
           </Typography>
           <Typography
@@ -76,7 +76,7 @@ const About: React.FC<any> = props => {
           </Typography>
         </div>
       </div>
-      <Content>
+      <Content classes={{ container: classes.noContentTopSpacing }}>
         <Grid item xs={12} className={appStyles.sectionSpacingTop}>
           <Typography
             variant="h6"

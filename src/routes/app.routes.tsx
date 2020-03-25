@@ -1,6 +1,10 @@
 import React, { useMemo } from "react";
 import clsx from "clsx";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  ThemeOptions
+} from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Notification } from "../@lib/components/notification/notification";
@@ -12,6 +16,42 @@ import { IStore } from "../models";
 import Protected from "../pages/protected/protected";
 import { useStyle } from "./style.routes";
 import { useThemeSwitcher } from "@lib/services/theme-swither/theme-switcher.service";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import grey from "@material-ui/core/colors/grey";
+import teal from "@material-ui/core/colors/teal";
+import red from "@material-ui/core/colors/red";
+
+const LightTheme: ThemeOptions = {
+  palette: {
+    type: "light",
+    background: {
+      default: "#fafafa"
+    },
+    primary: grey,
+    secondary: {
+      main: "#228896"
+    },
+    text: {
+      primary: "#000",
+      secondary: grey["600"]
+    },
+    error: red
+  }
+};
+const DarkTheme: ThemeOptions = {
+  palette: {
+    type: "dark",
+    background: {
+      default: blueGrey["900"]
+    },
+    primary: blueGrey,
+    secondary: teal,
+    text: {
+      primary: "#fff",
+      secondary: grey["400"]
+    }
+  }
+};
 
 const Wrapper: React.FC<any> = () => {
   const gStyles = useGlobalStyle();
@@ -21,10 +61,11 @@ const Wrapper: React.FC<any> = () => {
     (state: IStore.IAppState) => state.notificationMsg
   );
 
-  const { theme, handleToggleTheme } = useThemeSwitcher();
+  const { theme, handleToggleTheme } = useThemeSwitcher({
+    LightTheme,
+    DarkTheme
+  });
   const appTheme = createMuiTheme(theme);
-
-  // setTimeout(() => toggleTheme(), 2000);
 
   const memoRoutes = useMemo(
     () => (

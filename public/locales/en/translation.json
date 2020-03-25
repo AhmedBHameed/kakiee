@@ -1,23 +1,27 @@
 {
   "menu": {
     "kakiee": "KAKIEE",
-    "dashboard": "DASHBOARD"
+    "blog": "BLOG",
+    "dashboard": "DASHBOARD",
+    "about": "ABOUT",
+    "hireMe": "HIRE ME",
+    "contactMe": "CONTACT ME",
+    "logout": "LOG OUT",
+    "login": "LOG IN"
   },
-  "validators": {
-    "allRequired": "All field is required!",
-    "required": "This field is required!",
-    "invalidEmail": "Invalid email address!"
-  },
-  "blogCard": {
-    "share": "SHARE",
-    "readMore": "READ MORE"
+  "dashbaord": {
+    "asideMenu": {
+      "main": "DASHBOARD",
+      "articals": "ARTICALS",
+      "newArtical": "NEW ARTICAL"
+    }
   },
   "about": {
     "myname": "Hi, my name is",
     "ahmedhameed": "Ahmed HAMEED",
     "founder": "Founder of kakiee.at",
     "aboutKakiee": "ABOUT KAKIEE",
-    "introduction": "KAKIEE is a simple technical blog site for sharing knowledge and codes. As a developer and trainer, It is a pleasure to share what i've learned, through KAKIEE blog site. It can help other show them how to do things in practice. The name comes from kaki fruit which I fell in love from first see.",
+    "introduction": "KAKIEE is a simple personal portfolio with technical blog section for sharing knowledge and codes. As an digital entrepreneur with experience, It is a pleasure to share what i've learned. Blogs can help other and show them how to do things in best practice. The name comes from \"kaki fruit\" which I love so much.",
     "whatIDo": "WHAT I DO",
     "services": {
       "1": {
@@ -40,12 +44,20 @@
     "contactMe": "CONTACT ME",
     "contactSubtitle": "Any type of engagement is required so DO NOT hesitate to contact me. Even we can drink a cup of caffee together."
   },
-  "dashbaord": {
-    "asideMenu": {
-      "main": "DASHBOARD",
-      "articals": "ARTICALS",
-      "newArtical": "NEW ARTICAL"
-    }
+  "hireMe": {
+    "headPlanTitle": "Full-Stack JavaScript projects is your future.",
+    "quote": "IT DOESN'T MAKE SENSE TO HIRE SMART PEOPLE AND TELL THEM WHAT TO DO; WE HIRE SMART PEOPLE SO THEY CAN TELL US WHAT TO DO.",
+    "sayer": "- Steve Jobs",
+    "hireMeBtn": "HIRE ME"
+  },
+  "validators": {
+    "allRequired": "All field is required!",
+    "required": "This field is required!",
+    "invalidEmail": "Invalid email address!"
+  },
+  "blogCard": {
+    "share": "SHARE",
+    "readMore": "READ MORE"
   },
   "footer": {
     "line1": "© 2020 kakiee.at, All Rights Reserved.",
