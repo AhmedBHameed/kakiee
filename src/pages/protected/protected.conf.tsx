@@ -13,6 +13,12 @@ const LoadPage = (importedPage: any, protectionOpt: IProtectedOpt) => {
       new Promise((res, rej) => {
         if (protectionOpt.isAdmin) {
           res(importedPage);
+        } else if (
+          protectionOpt.isRequestFetched &&
+          !protectionOpt.isAdmin &&
+          !!protectionOpt.history
+        ) {
+          protectionOpt.history.push("/");
         } else if (protectionOpt.isRequestFetched && !!protectionOpt.history) {
           protectionOpt.history.push(`${protectionOpt.onFailRedirectTo}`);
         }
