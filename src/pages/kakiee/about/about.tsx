@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { TimelineLite, Power4 } from "gsap";
+import CSSPlugin from "gsap/CSSPlugin";
 import clsx from "clsx";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import { Typography, Grid, Button } from "@material-ui/core";
@@ -15,6 +16,8 @@ import Service from "../../components/service/service";
 import { ROUTER } from "../../../config";
 import { useAppStyle } from "../../../styles/app.style";
 import { useTranslation } from "react-i18next";
+
+const C = CSSPlugin; // eslint-disable-line
 
 const About: React.FC<any> = props => {
   const gStyles = useGlobalStyle();

@@ -32,6 +32,7 @@ const ImageUploader: React.FC<{
       <div className={classes.innerContent}>
         <img
           className={classes.image}
+          alt="article"
           src={
             !!src
               ? src

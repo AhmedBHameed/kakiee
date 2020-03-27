@@ -7,7 +7,7 @@ import { RouteComponentProps, Route } from "react-router-dom";
 import { ROUTER } from "config";
 import { LinkedIn, GitHub, Email } from "@material-ui/icons";
 import Contact from "./contact/contact";
-import Blog from "./blog/blog";
+// import Blog from "./blog/blog";
 import About from "./about/about";
 import HireMe from "./hire-me/hire-me";
 import { ReactComponent as Heart } from "../../static/heart.svg";
@@ -74,13 +74,13 @@ const Kakiee: React.FC<RouteComponentProps<any> & {
     <Route
       path={`${ROUTER.ROOT.path}/`}
       exact
-      render={props => <Blog {...props} />}
-    />
-    <Route
-      path={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
-      exact
       render={props => <About {...props} />}
     />
+    {/* <Route
+      path={`${ROUTER.ROOT.path}/${ROUTER.BLOGS.path}`}
+      exact
+      render={props => <Blog {...props} />}
+    /> */}
     <Route
       path={`${ROUTER.ROOT.path}/${ROUTER.HIREME.path}`}
       exact

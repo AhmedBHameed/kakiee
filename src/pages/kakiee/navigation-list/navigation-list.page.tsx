@@ -43,16 +43,17 @@ const NavigationList: React.FC<RouteComponentProps<any> &
         </li>
       )} */}
       <li>
-        <NavLink
+        {/* <NavLink
           isActive={isActive}
           onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
-          to={`${ROUTER.ROOT.path}/`}
+          to={`${ROUTER.ROOT.path}/${ROUTER.BLOGS.path}`}
           exact
         >
           BLOG
-        </NavLink>
+        </NavLink> */}
+        <span className={classes.links}>{t("menu.blog")}</span>
       </li>
       <li>
         <NavLink
@@ -60,7 +61,7 @@ const NavigationList: React.FC<RouteComponentProps<any> &
           onClick={scrollTop}
           className={classes.links}
           activeClassName={classes.activeLink}
-          to={`${ROUTER.ROOT.path}/${ROUTER.ABOUT.path}`}
+          to={`${ROUTER.ROOT.path}/`}
           exact
         >
           {t("menu.about")}

@@ -1,7 +1,7 @@
 {
   "menu": {
     "kakiee": "KAKIEE",
-    "blog": "BLOG",
+    "blog": "BLOG (soon)",
     "dashboard": "DASHBOARD",
     "about": "ABOUT",
     "hireMe": "HIRE ME",
@@ -45,9 +45,31 @@
     "contactSubtitle": "Any type of engagement is required so DO NOT hesitate to contact me. Even we can drink a cup of caffee together."
   },
   "hireMe": {
-    "headPlanTitle": "Full-Stack JavaScript projects is your future.",
-    "quote": "IT DOESN'T MAKE SENSE TO HIRE SMART PEOPLE AND TELL THEM WHAT TO DO; WE HIRE SMART PEOPLE SO THEY CAN TELL US WHAT TO DO.",
-    "sayer": "- Steve Jobs",
+    "headerSection": {
+      "title": "Full-Stack developer is your way to go."
+    },
+    "offers": {
+      "title": "What do I offer as a service ?",
+      "services": {
+        "1": {
+          "title": "Back-End",
+          "subtitle": "Building a scalable back-end application to service multiple clients by using most modern technologies like Node.js and database like SQL / NoSQL with the best concepts like JWT / RESTfull API / GraphQL / Micro services."
+        },
+        "2": {
+          "title": "Front-End",
+          "subtitle": "Coding UX/UI is our responsibilities. Client experience comes first when developing interfaces and services. Clean, reusable and optimized code is our focus. By using the most modern framework like React.js / Angular.js / Vue.js."
+        },
+        "3": {
+          "title": "Dev-Ops",
+          "subtitle": "We help you hosting your web site / web application and set up projects into a containers to serve as a service by using Linux / Nginx / Docker / Docker-compose. that will give you more flexibility for a feature modification and scalability."
+        }
+      }
+    },
+    "whyHiringMe": {
+      "title": "Why hiring me ?",
+      "quote": "IT DOESN'T MAKE SENSE TO HIRE SMART PEOPLE AND TELL THEM WHAT TO DO; WE HIRE SMART PEOPLE SO THEY CAN TELL US WHAT TO DO.",
+      "sayer": "- Steve Jobs"
+    },
     "hireMeBtn": "HIRE ME"
   },
   "validators": {

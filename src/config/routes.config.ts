@@ -29,8 +29,8 @@ export const ROUTER = {
   HIREME: {
     path: "hire-me"
   },
-  ABOUT: {
-    path: "about"
+  BLOGS: {
+    path: "blogs"
   },
   // DASHBOARD
   DASHBOARD: {

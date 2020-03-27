@@ -4,7 +4,6 @@ import { get } from "lodash";
 import MapGL, { Marker } from "react-map-gl";
 import clsx from "clsx";
 import { RouteComponentProps } from "react-router-dom";
-// import { IFormValidation } from "../../../@lib/services/form-builder/models/form-builder-validation.model";
 import { useGlobalStyle } from "../../../@lib/styles/lib.style";
 import {
   Grid,
@@ -12,7 +11,8 @@ import {
   FormHelperText,
   TextField,
   Button,
-  CircularProgress
+  CircularProgress,
+  useTheme
 } from "@material-ui/core";
 import {
   IAxiosErrorResponse,
@@ -43,7 +43,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const appStyles = useAppStyle();
   const classes = useStyle();
   const { t } = useTranslation();
-  const themeType = useSelector((state: IStore.IAppState) => state.themeType);
+  const theme = useTheme();
 
   const [form] = useState<{ state: any; validators: IFormValidation }>({
     state: {
@@ -502,7 +502,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         width="100%"
         height="500px"
         mapStyle={`mapbox://styles/mapbox/${
-          themeType === "dark" ? "dark-v9" : "light-v8"
+          theme.palette?.type === "dark" ? "dark-v9" : "light-v8"
         }`}
       >
         <Marker
