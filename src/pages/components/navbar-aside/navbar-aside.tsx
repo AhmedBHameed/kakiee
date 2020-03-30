@@ -71,7 +71,7 @@ const NavbarAside: React.FC<RouteComponentProps<any> & INavbarAside> = ({
           justify="center"
           className={clsx(gStyle.h100, classes.navMargin)}
         >
-          <Grid item>
+          <Grid item className={classes.menuHeight}>
             <Typography
               variant="h3"
               gutterBottom

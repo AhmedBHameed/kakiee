@@ -72,6 +72,20 @@
     },
     "hireMeBtn": "HIRE ME"
   },
+  "contactMe": {
+    "contactInfo": {
+      "address": "Wiedner Hauptstraße 141-143, Austria, Vienna.",
+      "mobile": "+43 677-6276-8620",
+      "email": "contact.kakiee@gmail.com"
+    },
+    "contactForm": {
+      "subject": "Subject",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send"
+    }
+  },
   "validators": {
     "allRequired": "All field is required!",
     "required": "This field is required!",

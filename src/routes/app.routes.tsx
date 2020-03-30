@@ -102,6 +102,7 @@ const Wrapper: React.FC<any> = () => {
       <div
         className={clsx(
           gStyles.h100,
+          classes.root,
           appTheme.palette.type === "light"
             ? classes.backgroundLightColor
             : classes.backgroundDarkColor

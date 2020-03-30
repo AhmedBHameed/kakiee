@@ -8,9 +8,7 @@ export const useStyles = makeStyles(theme => ({
   },
   copyRights: {
     position: "absolute",
-    bottom: "3rem",
-    left: "50%",
-    transform: "translateX(-50%)"
+    bottom: "3rem"
   },
   nameColor: {
     color: theme.palette.secondary.main

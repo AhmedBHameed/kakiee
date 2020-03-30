@@ -42,7 +42,10 @@ export const useStyle = makeStyles(theme => ({
   hi: {
     fontFamily: `'Fredericka the Great', cursive`,
     textAlign: "left",
-    marginBottom: 0
+    marginBottom: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: 24
+    }
   },
   myName: {
     // marginLeft: "2rem",
@@ -50,13 +53,19 @@ export const useStyle = makeStyles(theme => ({
     fontFamily: `'Fredericka the Great', cursive`,
     marginBottom: 0,
     whiteSpace: "nowrap",
-    padding: `0 ${theme.spacing(5)}px`
+    padding: `0 ${theme.spacing(5)}px`,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: 32
+    }
   },
   founder: {
     // marginLeft: "4rem",
     textAlign: "right",
     fontFamily: `'Fredericka the Great', cursive`,
-    marginBottom: 0
+    marginBottom: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: 24
+    }
   },
   sectionOpt: {
     marginBottom: "2rem",

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { get } from "lodash";
 import MapGL, { Marker } from "react-map-gl";
 import clsx from "clsx";
@@ -28,7 +28,6 @@ import { END_POINT } from "config";
 import { notify } from "../../../@lib/store/kakiee/actions";
 import { specialChar } from "../../../@lib/util";
 import { useTranslation } from "react-i18next";
-import { IStore } from "../../../models";
 import { useFormReducer, IFormValidation } from "../../../@lib";
 
 const viewport = {
@@ -38,12 +37,17 @@ const viewport = {
   longitude: 16.359264050177973,
   zoom: 14
 };
+
 const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const gStyles = useGlobalStyle();
   const appStyles = useAppStyle();
   const classes = useStyle();
-  const { t } = useTranslation();
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const [heightAxis, setHeightAxis] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const leftContainerEl = useRef<HTMLDivElement>(null);
 
   const [form] = useState<{ state: any; validators: IFormValidation }>({
     state: {
@@ -77,12 +81,6 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
       }
     }
   });
-
-  const dispatch = useDispatch();
-
-  const [heightAxis, setHeightAxis] = useState<number>(0);
-  const [loading, setLoading] = useState(false);
-  const leftContainerEl = useRef<HTMLDivElement>(null);
 
   const { state, handleOnChange, handleOnSubmit } = useFormReducer(
     form.state,
@@ -171,7 +169,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         <Grid item xs={12} sm={4} className={classes.itemsSpacing}>
           <Service
             Icon={MyLocation}
-            bodyTxt={`Wiedner Hauptstraße 141-143, Austria, Vienna.`}
+            bodyTxt={t("contactMe.contactInfo.address")}
             customClasses={{
               containerClass: classes.serviceCaptionTxt,
               bodyTxtClass: classes.serviceColorTxt
@@ -181,7 +179,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         <Grid item xs={12} sm={4} className={classes.itemsSpacing}>
           <Service
             Icon={PhoneEnabled}
-            bodyTxt={"+43 677-6276-8620"}
+            bodyTxt={t("contactMe.contactInfo.mobile")}
             customClasses={{
               containerClass: classes.serviceCaptionTxt,
               bodyTxtClass: classes.serviceColorTxt
@@ -191,7 +189,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
         <Grid item xs={12} sm={4} className={classes.itemsSpacing}>
           <Service
             Icon={Mail}
-            bodyTxt={"contact.kakiee@gmail.com"}
+            bodyTxt={t("contactMe.contactInfo.email")}
             customClasses={{
               containerClass: classes.serviceCaptionTxt,
               bodyTxtClass: classes.serviceColorTxt
@@ -213,11 +211,10 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={6} ref={leftContainerEl}>
+          <Grid item xs={12} md={6} ref={leftContainerEl}>
             <FormControl className={gStyles.w100}>
               <TextField
                 className={clsx(gStyles.noSpacing)}
-                autoFocus
                 error={state.submitted && state.controllers.subject.inValid}
                 id="subject"
                 name="subject"
@@ -225,7 +222,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 value={state.formData.subject}
                 onChange={handleOnChange}
                 variant="outlined"
-                label="Subject"
+                label={t("contactMe.contactForm.subject")}
                 margin="none"
                 size="small"
                 InputLabelProps={{
@@ -268,7 +265,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 value={state.formData.name}
                 onChange={handleOnChange}
                 variant="outlined"
-                label="Name"
+                label={t("contactMe.contactForm.name")}
                 margin="none"
                 size="small"
                 InputLabelProps={{
@@ -322,7 +319,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 type="email"
                 value={state.formData.email}
                 onChange={handleOnChange}
-                label="Email"
+                label={t("contactMe.contactForm.email")}
                 variant="outlined"
                 margin="none"
                 size="small"
@@ -361,7 +358,8 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
 
           <Grid
             item
-            xs={6}
+            xs={12}
+            md={6}
             style={{
               height: `${heightAxis}px`
             }}
@@ -388,7 +386,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 type="message"
                 value={state.formData.message}
                 onChange={handleOnChange}
-                label="Message"
+                label={t("contactMe.contactForm.message")}
                 variant="outlined"
                 size="small"
                 multiline
@@ -438,7 +436,7 @@ const Contact: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
                 type="submit"
                 className={gStyles.w100}
               >
-                <span>Send</span>
+                {t("contactMe.contactForm.send")}
                 {loading && (
                   <CircularProgress
                     className={classes.circulProgressColor}

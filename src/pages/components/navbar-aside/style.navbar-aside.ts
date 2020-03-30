@@ -33,6 +33,10 @@ export const useStyles = makeStyles(theme => ({
     left: 0,
     width: 300
   },
+  menuHeight: {
+    maxHeight: 450,
+    overflow: "auto"
+  },
   main: {
     width: "100%",
     transition: "left .6s",
