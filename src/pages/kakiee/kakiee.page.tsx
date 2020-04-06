@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Typography, IconButton } from "@material-ui/core";
 import { useGlobalStyle } from "../../@lib/styles/lib.style";
 import { useStyles } from "./style.kakiee";
-import { RouteComponentProps, Route } from "react-router-dom";
+import { RouteComponentProps, Route, Redirect } from "react-router-dom";
 import { ROUTER } from "config";
 import { LinkedIn, GitHub, Email } from "@material-ui/icons";
 import Contact from "./contact/contact";
@@ -91,6 +91,7 @@ const Kakiee: React.FC<RouteComponentProps<any> & {
       exact
       render={props => <Contact {...props} />}
     />
+    <Route render={() => <Redirect to="/" />} />
   </NavbarAside>
 );
 

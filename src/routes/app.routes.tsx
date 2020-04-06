@@ -72,6 +72,7 @@ const Wrapper: React.FC<any> = () => {
       <Switch>
         <Route
           path={`${ROUTER.ROOT.path}/${ROUTER.DASHBOARD.path}`}
+          strict
           render={props => (
             <Protected
               importedComponent={import("../pages/dashboard/dashboard.page")}
@@ -83,6 +84,7 @@ const Wrapper: React.FC<any> = () => {
         />
         <Route
           path={`${ROUTER.ROOT.path}/${ROUTER.ACCESS.path}`}
+          strict
           component={AccessPage}
         />
         <Route
